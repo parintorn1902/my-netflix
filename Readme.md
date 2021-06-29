@@ -1,8 +1,10 @@
 # Overview 
 
-This project is using Next.js and Tailwind.css and try to building a clone of Netflix website but only user management page
+This project is using Next.js and Tailwind.css
 
-*Important  This is just a showcase website
+I try to building a clone of Netflix website but only user management page
+
+**Important : This is just a showcase website
 
 # if you use NPM
 

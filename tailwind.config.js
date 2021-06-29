@@ -40,7 +40,7 @@ module.exports = {
       },
       animation: {
         "landing-loaded": 'landing 450ms ease-in',
-        "fade-in": "fade-in 450ms ease-in",
+        "fade-in": "fade-in 250ms ease-in",
         "error-shake": "error-shake 0.4s 1 linear"
       }
     },
