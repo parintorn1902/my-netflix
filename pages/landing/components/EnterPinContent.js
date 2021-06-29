@@ -2,8 +2,6 @@ import { XIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/dist/client/router";
 import { createRef, forwardRef, useEffect, useState } from "react";
 import ThreadHelper from "@utils/ThreadHelper";
-import LoadingGIF from "@assets/images/loading.gif";
-import Image from "next/image";
 import PageConstant from "@constants/PageConstant";
 import tw from "@utils/Tailwind";
 
@@ -15,11 +13,9 @@ function EnterPinContent({ visible = false, profilePassword, onCancel }) {
   const [pin2, setPin2] = useState("");
   const [pin3, setPin3] = useState("");
   const [pin4, setPin4] = useState("");
-  const [ready, setReady] = useState(true);
   const [showPIN, setShowPIN] = useState(false);
   const [showPinLengthError, setShowPinLengthError] = useState(false);
   const [showPinInvalidError, setShowPinInvalidError] = useState(false);
-  const [showLoading, setShowLoading] = useState(false);
 
   const pin1Ref = createRef();
   const pin2Ref = createRef();
@@ -78,10 +74,10 @@ function EnterPinContent({ visible = false, profilePassword, onCancel }) {
   }
 
   const handleSubmit = async (userFillInPin) => {
-    setShowLoading(true);
-    setShowPinInvalidError(false);
-    setReady(false);
-    await ThreadHelper.sleep(500);
+    // clear animation class
+    let animateClassName = "animate-error-shake";
+    pinParent.current.classList.remove(animateClassName);
+
     if (userFillInPin === profilePassword) {
       // pass
       router.push(PageConstant.BROWSE);
@@ -92,8 +88,10 @@ function EnterPinContent({ visible = false, profilePassword, onCancel }) {
       setPin3("");
       setPin4("");
       setShowPinInvalidError(true);
-      setShowLoading(false);
-      setReady(true);
+
+      pin1Ref.current.focus();
+      pinParent.current.classList.add(animateClassName);
+
     }
   }
 
@@ -115,16 +113,6 @@ function EnterPinContent({ visible = false, profilePassword, onCancel }) {
     }
   }, [visible]);
 
-  useEffect(() => {
-    if (ready) {
-      pin1Ref.current.focus();
-
-      if (showPinInvalidError) {
-        pinParent.current.classList.add("animate-error-shake");
-      }
-    }
-  }, [ready]);
-
   return (
     <div
       className={tw(
@@ -135,99 +123,82 @@ function EnterPinContent({ visible = false, profilePassword, onCancel }) {
       )}
     >
 
-      {
-        showLoading ? (
-          <div className="flex flex-col">
-            <Image
-              src={LoadingGIF}
-              alt="Loading"
-              layout="responsive"
-              objectFit="fill"
-              loading="eager"
-            />
-            <p className="text-white animate-bounce">Verifying ...</p>
-          </div>
-        ) : (
-          <>
-            <div
-              className={tw(
-                "absolute",
-                "top-[100px] right-[30px] w-[3vw] lg:w-[30px]",
-                "cursor-pointer"
-              )}
-              onClick={onCancel}
-            >
-              <XIcon className="text-white" />
-            </div>
-            <div className="flex flex-col items-center justify-center">
-              <span>Profile Lock is currently on.</span>
-              <span
-                className={tw(
-                  "text-[2.5vw] lg:text-[20px]",
-                  "text-center",
-                  showPinInvalidError ? "text-[#e6b029]" : "text-white"
-                )}
-              >
-                {showPinInvalidError ? "Whoops, wrong PIN. Please try again." : "Enter your PIN to access this profile."}
-              </span>
+      <div
+        className={tw(
+          "absolute",
+          "top-[100px] right-[30px] w-[3vw] lg:w-[30px]",
+          "cursor-pointer"
+        )}
+        onClick={onCancel}
+      >
+        <XIcon className="text-white" />
+      </div>
+      <div className="flex flex-col items-center justify-center">
+        <span>Profile Lock is currently on.</span>
+        <span
+          className={tw(
+            "text-[2.5vw] lg:text-[20px]",
+            "text-center",
+            showPinInvalidError ? "text-[#e6b029]" : "text-white"
+          )}
+        >
+          {showPinInvalidError ? "Whoops, wrong PIN. Please try again." : "Enter your PIN to access this profile."}
+        </span>
 
-              <div
-                ref={pinParent}
-                className={tw(
-                  "flex flex-row",
-                  "my-[3em] space-x-[.4em]"
-                )}
-              >
-                <PinInput
-                  ref={pin1Ref}
-                  value={pin1}
-                  onChange={handlePin1Change}
-                  onBlur={validtePinLength}
-                />
-                <PinInput
-                  ref={pin2Ref}
-                  value={pin2}
-                  onChange={handlePin2Change}
-                  onBlur={validtePinLength}
-                />
-                <PinInput
-                  ref={pin3Ref}
-                  value={pin3}
-                  onChange={handlePin3Change}
-                  onBlur={validtePinLength}
-                />
-                <PinInput
-                  ref={pin4Ref}
-                  value={pin4}
-                  onChange={handlePin4Change}
-                  onBlur={validtePinLength}
-                />
-              </div>
-              <p className={`${showPinLengthError ? "text-[#b9090b]" : "text-black"}`}>
-                Your PIN must be 4 numbers.
+        <div
+          ref={pinParent}
+          className={tw(
+            "flex flex-row",
+            "my-[3em] space-x-[.4em]"
+          )}
+        >
+          <PinInput
+            ref={pin1Ref}
+            value={pin1}
+            onChange={handlePin1Change}
+            onBlur={validtePinLength}
+          />
+          <PinInput
+            ref={pin2Ref}
+            value={pin2}
+            onChange={handlePin2Change}
+            onBlur={validtePinLength}
+          />
+          <PinInput
+            ref={pin3Ref}
+            value={pin3}
+            onChange={handlePin3Change}
+            onBlur={validtePinLength}
+          />
+          <PinInput
+            ref={pin4Ref}
+            value={pin4}
+            onChange={handlePin4Change}
+            onBlur={validtePinLength}
+          />
+        </div>
+        <p className={`${showPinLengthError ? "text-[#b9090b]" : "text-black"}`}>
+          Your PIN must be 4 numbers.
+        </p>
+
+        <div
+          className="absolute bottom-[5vw] cursor-pointer"
+          onClick={handleShowPINClick}
+        >
+          {
+            showPIN ? (
+              <p className="text-white animate-bounce">
+                Your PIN is {profilePassword}
               </p>
+            ) : (
+              <a className="text-[#ccc] px-[1em] py-[.5em] transition duration-300 hover:scale-110 hover:bg-[#33333366]">
+                Forgot PIN?
+              </a>
+            )
+          }
 
-              <div
-                className="absolute bottom-[5vw] cursor-pointer"
-                onClick={handleShowPINClick}
-              >
-                {
-                  showPIN ? (
-                    <p className="text-white animate-bounce">
-                      Your PIN is {profilePassword}
-                    </p>
-                  ) : (
-                    <a className="text-[#ccc] px-[1em] py-[.5em] transition duration-300 hover:scale-110 hover:bg-[#33333366]">
-                      Forgot PIN?
-                    </a>
-                  )
-                }
-
-              </div>
-            </div>
-          </>
-        )
-      }
+        </div>
+      </div>
 
     </div>
   )
@@ -240,7 +211,7 @@ const PinInput = forwardRef(({ value, onChange, onBlur }, ref) => {
     <input
       ref={ref}
       type="password"
-      pattern="[0-9]*" 
+      pattern="[0-9]*"
       inputmode="numeric"
       className="border-2 border-solid outline-none border-white w-[9vw] h-[9vw] bg-transparent focus:scale-110 transition duration-150 text-[2.5vw] text-center text-white lg:w-[60px] lg:h-[60px] lg:text-[24px]"
       maxLength={1}
