@@ -36,7 +36,7 @@ function LandingProfileItem({ profileImage, profileName, isLocked, isAddProfile,
           <div
             className={tw(
               "absolute", // layout
-              "h-[10vw] w-[10vw]", // measure
+              "h-[10vw] w-[10vw] lg:min-w-[100px] lg:min-h-[100px]", // measure
               "border-4 border-transparent group-hover:border-gray-100 z-10" // style
             )}
           />

@@ -143,6 +143,7 @@ function EnterPinContent({ visible = false, profilePassword, onCancel }) {
               alt="Loading"
               layout="responsive"
               objectFit="fill"
+              loading="eager"
             />
             <p className="text-white animate-bounce">Verifying ...</p>
           </div>
@@ -239,6 +240,8 @@ const PinInput = forwardRef(({ value, onChange, onBlur }, ref) => {
     <input
       ref={ref}
       type="password"
+      pattern="[0-9]*" 
+      inputmode="numeric"
       className="border-2 border-solid outline-none border-white w-[9vw] h-[9vw] bg-transparent focus:scale-110 transition duration-150 text-[2.5vw] text-center text-white lg:w-[60px] lg:h-[60px] lg:text-[24px]"
       maxLength={1}
       value={value}
