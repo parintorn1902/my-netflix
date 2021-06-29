@@ -61,7 +61,9 @@ function AddProfileContent({ onCancel }) {
           "text-[4vw] lg:text-[30px]",
           "text-white"
         )}
-      >Add Profile</div>
+      >
+        Add Profile
+      </div>
       <div className="mb-[1em]">Add a profile for another person watching Netflix</div>
       <div
         className={tw(
@@ -82,6 +84,7 @@ function AddProfileContent({ onCancel }) {
               objectFit="fill"
               src={NewProfileImage}
               alt="Profile Image"
+              className="bg-[#ddd]"
             />
           </div>
           <div className="flex items-center justify-center">
