@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import NewProfileImage from "@assets/images/new_profile.png";
+import NewProfileImage from "@assets/images/newprofile.png";
 import TextInput from "@components/TextInput/TextInput";
 import Button from "@components/Button/Button";
 import Checkbox from "@components/Checkbox/Checkbox";

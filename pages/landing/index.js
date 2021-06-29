@@ -3,7 +3,7 @@ import LandingHeader from './components/LandingHeader'
 
 function Landing() {
   return (
-    <div className="flex">
+    <div className="h-full">
 
       <LandingHeader showBgGradient={true} />
 

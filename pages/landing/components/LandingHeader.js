@@ -1,5 +1,5 @@
 import Image from "next/image";
-import NetflixLogo from "@assets/images/netflix-logo.png";
+import NetflixLogo from "@assets/images/logo.png";
 import tw from "@utils/Tailwind";
 
 function LandingHeader() {

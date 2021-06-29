@@ -1,4 +1,4 @@
-import DefaultProfileImage from "@assets/images/new_profile.png";
+import DefaultProfileImage from "@assets/images/newprofile.png";
 
 class UserProfileModel {
   constructor() {

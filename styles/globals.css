@@ -3,11 +3,17 @@
 @tailwind utilities;
 
 @layer base {
+  html, body {
+    @apply min-h-full h-full
+  }
   body {
     @apply bg-[#141414] text-[gray] font-medium text-[1.2vw] select-none lg:text-[16px]
   }
 }
 
+#__next {
+  height: 100%;
+}
 
 .tooltip {
   position: relative;

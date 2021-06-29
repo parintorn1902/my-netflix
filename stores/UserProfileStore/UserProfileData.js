@@ -1,6 +1,6 @@
 import RedImage from "@assets/images/red.png";
-import YellowImage from "@assets/images/yellow.png";
-import CatImage from "@assets/images/cat.png";
+import MangoImage from "@assets/images/mango.png";
+import BartlebyImage from "@assets/images/bartleby.png";
 import RobotImage from "@assets/images/robot.png";
 
 const UserProfileData = [
@@ -15,8 +15,8 @@ const UserProfileData = [
   },
   {
     profileId: 2,
-    profileName: "Yellow",
-    profileImage: YellowImage,
+    profileName: "Mango",
+    profileImage: MangoImage,
     profilePassword: "1111",
     isLocked: true,
     autoPlayNextEp: true,
@@ -24,8 +24,8 @@ const UserProfileData = [
   },
   {
     profileId: 3,
-    profileName: "Cat",
-    profileImage: CatImage,
+    profileName: "Bartleby",
+    profileImage: BartlebyImage,
     profilePassword: "1122",
     isLocked: true,
     autoPlayNextEp: true,
