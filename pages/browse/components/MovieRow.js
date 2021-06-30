@@ -15,7 +15,7 @@ function MovieRow({ title, fetchUrl }) {
 
     const fetchMovies = async () => {
       const fetchResponse = await Service.get(fetchUrl);
-      console.log(`${title} :`, fetchResponse.results)
+      // console.log(`${title} :`, fetchResponse.results)
       setMovies(fetchResponse.results);
     }
 

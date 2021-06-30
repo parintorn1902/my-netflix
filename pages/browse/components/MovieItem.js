@@ -17,7 +17,7 @@ function MovieItem({ movie, isLastChildInScreen = false, onLastChildInScreenClic
       <Image
         // className="w-[100%]"
         src={imageBaseUrl + imagePath}
-        alt={movie.name}
+        alt={movie?.name}
         layout="fill"
         objectFit="cover"
       />
