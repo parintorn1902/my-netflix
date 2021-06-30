@@ -5,7 +5,7 @@ import Image from 'next/image';
 const imageBaseUrl = "https://image.tmdb.org/t/p/w400";
 
 function MovieItem({ movie, isLastChildInScreen = false, onLastChildInScreenClick }) {
-  const imagePath = movie.backdrop_path ? movie.backdrop_path : movie.poster_path;
+  const imagePath = movie?.backdrop_path ? movie?.backdrop_path : movie?.poster_path;
   return (
     <div
       className={tw(
