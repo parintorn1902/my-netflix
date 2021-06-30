@@ -1,7 +1,7 @@
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 import PageConstant from "@constants/PageConstant";
-import UserProfileData from "@stores/UserProfileStore/UserProfileData";
+import UserProfileData from "@app/master/user_profiles/UserProfileData";
 import ThreadHelper from "@utils/ThreadHelper";
 import Button from "@components/Button/Button"
 import AddProfileContent from "./AddProfileContent";
@@ -22,6 +22,7 @@ function LandingContent() {
 
   const router = useRouter();
 
+  const [profiles, setProfiles] = useState([]);
   const [currentProfile, setCurrentProfile] = useState(null);
   const [showContent, setShowContent] = useState(true);
   const [previousContent, setPreviousContent] = useState(null);
@@ -79,7 +80,7 @@ function LandingContent() {
       return (
         <EnterPinContent
           visible={currentContent === CONTENT.ENTER_PIN}
-          profilePassword={currentProfile?.profilePassword}
+          profileData={currentProfile}
           onCancel={handleCancelContentClick}
         />
       );
@@ -146,22 +147,16 @@ function LandingContent() {
   }
 
   return (
-    <section
+    <div
       className={tw(
         "flex flex-col items-center justify-center",
         "h-full w-full",
         "overflow-hidden"
       )}
     >
-      <div
-        className={tw(
-          "absolute flex",
-          "top-0 left-0 h-[3.5vw] w-full lg:h-[50px]",
-          "bg-gradient-to-b from-[#000000] via-[#0e0e0e] to-[transparent]"
-        )}
-      />
+      
       {renderContent()}
-    </section>
+    </div>
   )
 }
 

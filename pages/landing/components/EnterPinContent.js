@@ -1,13 +1,18 @@
+import Cookie from "js-cookie";
 import { XIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/dist/client/router";
 import { createRef, forwardRef, useEffect, useState } from "react";
 import ThreadHelper from "@utils/ThreadHelper";
 import PageConstant from "@constants/PageConstant";
 import tw from "@utils/Tailwind";
+import { useDispatch } from "react-redux";
+import { setProfile } from "@app/store/slice/profileSlice";
 
-function EnterPinContent({ visible = false, profilePassword, onCancel }) {
+function EnterPinContent({ visible = false, profileData = {}, onCancel }) {
 
+  const { profilePassword } = profileData;
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [pin1, setPin1] = useState("");
   const [pin2, setPin2] = useState("");
@@ -80,7 +85,9 @@ function EnterPinContent({ visible = false, profilePassword, onCancel }) {
 
     if (userFillInPin === profilePassword) {
       // pass
-      router.push(PageConstant.BROWSE);
+      Cookie.set("mnf_id", profileData.profileId, { expires: (1/96) });
+      dispatch(setProfile(profileData));
+      // router.reload(PageConstant.BROWSE);
     } else {
       // fail, reset pin
       setPin1("");
@@ -212,7 +219,7 @@ const PinInput = forwardRef(({ value, onChange, onBlur }, ref) => {
       ref={ref}
       type="password"
       pattern="[0-9]*"
-      inputmode="numeric"
+      inputMode="numeric"
       className="border-2 border-solid outline-none border-white w-[9vw] h-[9vw] bg-transparent focus:scale-110 transition duration-150 text-[2.5vw] text-center text-white lg:w-[60px] lg:h-[60px] lg:text-[24px]"
       maxLength={1}
       value={value}

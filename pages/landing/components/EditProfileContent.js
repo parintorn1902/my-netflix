@@ -5,7 +5,7 @@ import TextInput from "@components/TextInput/TextInput";
 import Button from "@components/Button/Button";
 import Divider from "@components/Divider/Divider";
 import Checkbox from "@components/Checkbox/Checkbox";
-import UserProfileApi from "@stores/UserProfileStore/UserProfileApi";
+import UserProfileApi from "@app/master/user_profiles/UserProfileApi";
 import tw from "@utils/Tailwind";
 
 function EditProfileContent({ editProfile = {}, onCancel }) {

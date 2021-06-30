@@ -30,6 +30,15 @@ class UserProfileApi {
     userProfile.profileName = profileName;
     UserProfileData.push(userProfile);
   }
+
+  /**
+   * 
+   * @param {Number} profileId 
+   * @returns 
+   */
+  static getUserProfileById(profileId) {
+    return UserProfileData.find(item => item.profileId === profileId);
+  }
 }
 
 export default UserProfileApi;

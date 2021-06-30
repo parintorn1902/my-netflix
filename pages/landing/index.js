@@ -1,14 +1,11 @@
+import NavBar from '@components/NavBar/NavBar'
 import LandingContent from './components/LandingContent'
-import LandingHeader from './components/LandingHeader'
 
 function Landing() {
   return (
     <div className="h-full">
-
-      <LandingHeader showBgGradient={true} />
-
+      <NavBar />
       <LandingContent />
-
     </div>
   )
 }

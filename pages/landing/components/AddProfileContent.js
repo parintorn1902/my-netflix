@@ -4,9 +4,9 @@ import NewProfileImage from "@assets/images/newprofile.png";
 import TextInput from "@components/TextInput/TextInput";
 import Button from "@components/Button/Button";
 import Checkbox from "@components/Checkbox/Checkbox";
-import UserProfileApi from "@stores/UserProfileStore/UserProfileApi";
 import Tooltip from "@components/Tooltip/Tooltip";
 import tw from "@utils/Tailwind";
+import UserProfileApi from "@app/master/user_profiles/UserProfileApi";
 
 function AddProfileContent({ onCancel }) {
 
