@@ -84,8 +84,7 @@ function MovieRow({ title, fetchUrl }) {
           "group relative movie-row",
           "whitespace-nowrap w-full h-[9vw]",
           "first:ml-[20px]",
-          "transform transition duration-1000",
-          // scrollPosition === 0 ? "" : `translate-x-[${scrollPosition}%]`
+          "transform transition duration-1000"
         )}
       >
         {
