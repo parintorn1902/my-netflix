@@ -27,40 +27,23 @@ function MovieRow({ title, fetchUrl }) {
   }, [fetchUrl]);
 
   const handlePreviousPageClick = () => {
-    console.log("currentPage", currentPage)
-    console.log("sizePerPage", sizePerPage)
-
-    console.log("movies.length", movies.length)
-    let nextTargetIndex = (currentPage * sizePerPage);
-    if (nextTargetIndex > movies.length) {
-      nextTargetIndex = (currentPage - 1) * sizePerPage;
-    }
-
-    console.log("nextTargetIndex", nextTargetIndex)
-
-    let nextTargetElement = rowRef.current.children[nextTargetIndex];
-    if (nextTargetElement) {
-      console.log("nextTargetElement", nextTargetElement);
-      console.log("dff ele", rowRef.current.children[nextTargetIndex - sizePerPage]);
-      let paddingLeft = (currentPage - 1 > 1 ? rowRef.current.children[0].offsetLeft : 0);
-      let diffElement = currentPage - 1 > 1 ? rowRef.current.children[nextTargetIndex - sizePerPage] : null;
-      let diffValue = diffElement ? diffElement.offsetLeft - paddingLeft : 0;
-      rowRef.current.scrollLeft -= nextTargetElement.offsetLeft - diffValue - paddingLeft;
-      setCurrentPage(currentPage - 1);
-    }
+    let child = rowRef.current.children[0];
+    let childWidth = child.offsetWidth;
+    let previousPage = currentPage - 2;
+    let diff = (5 * sizePerPage * previousPage);
+    let calScrollPosition = -Math.abs(previousPage * childWidth * sizePerPage + diff);
+    setScrollPosition(calScrollPosition);
+    setCurrentPage(currentPage - 1);
   }
 
   const handleNextPageClick = () => {
-    // setScrollPosition(-90 * currentPage);
-    // rowRef.current.classList.add("translate-x-[-calc(100% - 3.2vw)]");
-    return;
+    let child = rowRef.current.children[0];
+    let childWidth = child.offsetWidth;
+    let diff = (5 * sizePerPage * currentPage);
     let nextTargetIndex = (currentPage * sizePerPage);
-    let nextTargetElement = rowRef.current.children[nextTargetIndex];
-    if (nextTargetElement) {
-      let paddingLeft = rowRef.current.children[0].offsetLeft;
-      rowRef.current.scrollLeft = nextTargetElement.offsetLeft - paddingLeft;
-      setCurrentPage(currentPage + 1);
-    }
+    let calScrollPosition = -Math.abs(childWidth * nextTargetIndex + diff);
+    setScrollPosition(calScrollPosition);
+    setCurrentPage(currentPage + 1);
   }
 
   return (
@@ -83,9 +66,12 @@ function MovieRow({ title, fetchUrl }) {
         className={tw(
           "group relative movie-row",
           "whitespace-nowrap w-full h-[9vw]",
-          "first:ml-[20px]",
+          "scrollbar-hide",
           "transform transition duration-1000"
         )}
+        style={{
+          transform: `translateX(${scrollPosition}px)`
+        }}
       >
         {
           movies.map((item, index) => (
