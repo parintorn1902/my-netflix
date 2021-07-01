@@ -29,6 +29,11 @@ module.exports = {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
+        "image-loading": {
+          '0%': { 'background-color': 'gray' },
+          '50%': { 'background-color': '#ccc' },
+          '100%': { 'background-color': 'gray' },
+        },
         "error-shake": {
           '0%': { transform: 'translate(30px)' },
           '20%': { transform: 'translate(-30px)' },
@@ -41,7 +46,8 @@ module.exports = {
       animation: {
         "landing-loaded": 'landing 450ms ease-in',
         "fade-in": "fade-in 250ms ease-in",
-        "error-shake": "error-shake 0.4s 1 linear"
+        "error-shake": "error-shake 0.4s 1 linear",
+        "image-loading": "image-loading 2s infinite"
       }
     },
   },

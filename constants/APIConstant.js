@@ -3,7 +3,8 @@ const BASE_URL = "https://api.themoviedb.org/3";
 
 const APIConstant = {
   URL: {
-    NEXTFLEX_ORIGINALS: `${BASE_URL}/discover/tv?api_key=${API_KEY}&with_networks=213`,
+    POPULAR_ON_NEXFLIX: `${BASE_URL}/discover/tv?api_key=${API_KEY}&with_ott_providers=8&vote_average.lte=10&sort_by=popularity.desc`,
+    NEXTFLEX_ORIGINALS: `${BASE_URL}/discover/tv?api_key=${API_KEY}&with_networks=213&page=2`,
     TRENDING: `${BASE_URL}/trending/all/week?api_key=${API_KEY}&language=en-US`,
     TOP_RATED: `${BASE_URL}/movie/top_rated?api_key=${API_KEY}&language=en-US`,
     ACTION_MOVIES: `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=28`,

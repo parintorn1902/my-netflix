@@ -10,7 +10,7 @@ function NavBar({ profileData }) {
   const navRef = createRef();
 
   useEffect(() => {
-    const listener = document.addEventListener("scroll", e => {
+    const handleNavBg = (e) => {
       let scrolled = document.scrollingElement.scrollTop;
       const className = "bg-[#141414]";
       if (scrolled > 40) {
@@ -22,8 +22,9 @@ function NavBar({ profileData }) {
           navRef.current.classList.remove(className);
         }
       }
-    });
-
+    };
+    handleNavBg();
+    const listener = document.addEventListener("scroll", handleNavBg);
     return () => document.removeEventListener("scroll", listener);
   });
 

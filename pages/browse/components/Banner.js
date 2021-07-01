@@ -15,7 +15,11 @@ function Banner() {
       let fetchResponse = await Service.get(APIConstant.URL.NEXTFLEX_ORIGINALS);
       let randomBanner = fetchResponse.results[Math.floor(Math.random() * fetchResponse.results.length - 1)];
       // console.log("banner movie", randomBanner);
-      setMovie(randomBanner);
+      if(randomBanner) {
+        setMovie(randomBanner);
+      } else {
+        setMovie(fetchResponse.results[0]);
+      }
     }
 
     fetchMovie();

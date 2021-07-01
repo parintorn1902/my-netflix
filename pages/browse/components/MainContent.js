@@ -20,8 +20,11 @@ function MainContent({ profileId }) {
     <div className="flex flex-col animate-fade-in">
       <NavBar profileData={profileData} />
       <Banner />
-      <div className="pl-[3.2vw]">
-        <MovieRow title="Netflix Originals" fetchUrl={APIConstant.URL.NEXTFLEX_ORIGINALS} />
+      <div
+        className="overflow-x-hidden"
+      >
+        <MovieRow title="Popular on Netflix" fetchUrl={APIConstant.URL.POPULAR_ON_NEXFLIX} />
+        {/* <MovieRow title="Netflix Originals" fetchUrl={APIConstant.URL.NEXTFLEX_ORIGINALS} /> */}
         <MovieRow title="Trending Now" fetchUrl={APIConstant.URL.TRENDING} />
         <MovieRow title="Top Rated" fetchUrl={APIConstant.URL.TOP_RATED} />
         <MovieRow title="Action Movies" fetchUrl={APIConstant.URL.ACTION_MOVIES} />

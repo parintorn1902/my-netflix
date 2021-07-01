@@ -1,30 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
 
 @layer base {
-  html, body {
-    @apply min-h-full h-full
+  html, body, #__next {
+    @apply h-full;
   }
   body {
-    @apply bg-[#141414] text-[gray] font-medium text-[1.2vw] select-none lg:text-[16px]
+    @apply bg-[#141414] text-[gray] font-medium text-[1.2vw] select-none lg:text-[16px];
   }
   img, video {
-    @apply w-[auto] max-w-none
+    @apply w-[auto] max-w-none;
   }
-}
-
-#__next {
-  height: 100%;
 }
 
 body {
   font-family: 'Lato', sans-serif;
-}
-
-#movie-slide {
-  scroll-behavior: smooth;
 }
 
 .tooltip {
