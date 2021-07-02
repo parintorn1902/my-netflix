@@ -190,6 +190,7 @@ function NavBar({ profileData, onManageProfile, onExitProfile }) {
                       <Image
                         className="rounded-[5px]"
                         src={require("@assets/images/" + profileData.profileImage)}
+                        alt={profileData.profileImage}
                         width={32}
                         height={32}
                       />
