@@ -1,27 +1,13 @@
-import UserProfileApi from "@app/master/user_profiles/UserProfileApi";
-import NavBar from "@components/NavBar/NavBar";
 import APIConstant from "@constants/APIConstant";
-import { useEffect, useState } from "react";
 import Banner from "./Banner";
 import MovieRow from "./MovieRow";
 
-function MainContent({ profileId }) {
-
-  const [profileData, setProfileData] = useState(null);
-
-  useEffect(() => {
-    if (profileId) {
-      let getProfileData = UserProfileApi.getUserProfileById(parseInt(profileId));
-      setProfileData(getProfileData);
-    }
-  }, [profileId])
-
+function MovieList() {
   return (
     <div className="flex flex-col animate-fade-in">
-      <NavBar profileData={profileData} />
       <Banner />
       <div
-        className="overflow-x-hidden"
+        className="overflow-x-hidden my-[3vw] space-y-[3vw]"
       >
         <MovieRow title="Popular on Netflix" fetchUrl={APIConstant.URL.POPULAR_ON_NEXFLIX} />
         {/* <MovieRow title="Netflix Originals" fetchUrl={APIConstant.URL.NEXTFLEX_ORIGINALS} /> */}
@@ -37,4 +23,4 @@ function MainContent({ profileId }) {
   )
 }
 
-export default MainContent
+export default MovieList

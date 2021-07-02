@@ -37,7 +37,11 @@ class UserProfileApi {
    * @returns 
    */
   static getUserProfileById(profileId) {
-    return UserProfileData.find(item => item.profileId === profileId);
+    try {
+      return UserProfileData.find(item => item.profileId === parseInt(profileId));
+    } catch (error) {
+      return undefined;
+    }
   }
 }
 

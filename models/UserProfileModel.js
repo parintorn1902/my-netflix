@@ -1,9 +1,7 @@
-import DefaultProfileImage from "@assets/images/newprofile.png";
-
 class UserProfileModel {
   constructor() {
     this.profileId = 0;
-    this.profileImage = DefaultProfileImage;
+    this.profileImage = "newprofile.png";
     this.profileName = "";
     this.profilePassword = "";
     this.isLocked = false;

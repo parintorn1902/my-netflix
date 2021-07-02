@@ -1,19 +1,15 @@
-import Cookie from "js-cookie";
 import { XIcon } from "@heroicons/react/solid";
-import { useRouter } from "next/dist/client/router";
 import { createRef, forwardRef, useEffect, useState } from "react";
 import ThreadHelper from "@utils/ThreadHelper";
-import PageConstant from "@constants/PageConstant";
 import tw from "@utils/Tailwind";
-import { useDispatch } from "react-redux";
-import { setProfile } from "@app/store/slice/profileSlice";
 
-function EnterPinContent({ visible = false, profileData = {}, onCancel }) {
+const BACK_SPACE_KEY = "Backspace";
+
+function AuthenProfile({ profileData = {}, onLaunchProfile, onCancel }) {
 
   const { profilePassword } = profileData;
-  const router = useRouter();
-  const dispatch = useDispatch();
 
+  const [ready, setReady] = useState(true);
   const [pin1, setPin1] = useState("");
   const [pin2, setPin2] = useState("");
   const [pin3, setPin3] = useState("");
@@ -28,7 +24,7 @@ function EnterPinContent({ visible = false, profileData = {}, onCancel }) {
   const pin4Ref = createRef();
   const pinParent = createRef();
 
-  const handlePin1Change = ({ target }) => {
+  const handlePin1Change = ({ target}) => {
     setPin1(target.value);
     if (target.value !== "") {
       pin2Ref.current.focus();
@@ -39,7 +35,11 @@ function EnterPinContent({ visible = false, profileData = {}, onCancel }) {
     setPin2(target.value);
     if (target.value !== "") {
       pin3Ref.current.focus();
-    } else {
+    }
+  }
+
+  const handlePin2KeyDown = ({ key }) => {
+    if(key === BACK_SPACE_KEY) {
       pin1Ref.current.focus();
       pin1Ref.current.select();
     }
@@ -49,7 +49,11 @@ function EnterPinContent({ visible = false, profileData = {}, onCancel }) {
     setPin3(target.value);
     if (target.value !== "") {
       pin4Ref.current.focus();
-    } else {
+    }
+  }
+
+  const handlePin3KeyDown = ({ key }) => {
+    if(key === BACK_SPACE_KEY) {
       pin2Ref.current.focus();
       pin2Ref.current.select();
     }
@@ -57,9 +61,10 @@ function EnterPinContent({ visible = false, profileData = {}, onCancel }) {
 
   const handlePin4Change = ({ target }) => {
     setPin4(target.value);
-    if (target.value !== "") {
-      // do nothing
-    } else {
+  }
+
+  const handlePin4KeyDown = ({ key }) => {
+    if(key === BACK_SPACE_KEY) {
       pin3Ref.current.focus();
       pin3Ref.current.select();
     }
@@ -85,8 +90,8 @@ function EnterPinContent({ visible = false, profileData = {}, onCancel }) {
 
     if (userFillInPin === profilePassword) {
       // pass
-      Cookie.set("mnf_id", profileData.profileId, { expires: (1/96) });
-      dispatch(setProfile(profileData));
+      onLaunchProfile();
+
       // router.reload(PageConstant.BROWSE);
     } else {
       // fail, reset pin
@@ -115,18 +120,15 @@ function EnterPinContent({ visible = false, profileData = {}, onCancel }) {
   }, [pin1, pin2, pin3, pin4]);
 
   useEffect(() => {
-    if (visible) {
-      pin1Ref.current.focus();
-    }
-  }, [visible]);
+    pin1Ref.current.focus();
+  }, [ready]);
 
   return (
     <div
       className={tw(
         "absolute flex flex-col items-center justify-center",
         "w-screen h-screen",
-        "bg-[#040404] z-10 transition duration-300 animate-fade-in",
-        visible === true ? "visible" : "hidden"
+        "bg-[#040404] z-10 transition duration-300 animate-fade-in"
       )}
     >
 
@@ -169,18 +171,21 @@ function EnterPinContent({ visible = false, profileData = {}, onCancel }) {
             ref={pin2Ref}
             value={pin2}
             onChange={handlePin2Change}
+            onKeyDown={handlePin2KeyDown}
             onBlur={validtePinLength}
           />
           <PinInput
             ref={pin3Ref}
             value={pin3}
             onChange={handlePin3Change}
+            onKeyDown={handlePin3KeyDown}
             onBlur={validtePinLength}
           />
           <PinInput
             ref={pin4Ref}
             value={pin4}
             onChange={handlePin4Change}
+            onKeyDown={handlePin4KeyDown}
             onBlur={validtePinLength}
           />
         </div>
@@ -211,9 +216,9 @@ function EnterPinContent({ visible = false, profileData = {}, onCancel }) {
   )
 }
 
-export default EnterPinContent
+export default AuthenProfile
 
-const PinInput = forwardRef(({ value, onChange, onBlur }, ref) => {
+const PinInput = forwardRef(({ value, onChange, onBlur, onKeyDown }, ref) => {
   return (
     <input
       ref={ref}
@@ -224,6 +229,7 @@ const PinInput = forwardRef(({ value, onChange, onBlur }, ref) => {
       maxLength={1}
       value={value}
       onChange={onChange}
+      onKeyDown={onKeyDown}
       onBlur={onBlur}
       autoComplete="off"
     />

@@ -1,13 +1,8 @@
-import RedImage from "@assets/images/red.png";
-import MangoImage from "@assets/images/mango.png";
-import BartlebyImage from "@assets/images/bartleby.png";
-import RobotImage from "@assets/images/robot.png";
-
 const UserProfileData = [
   {
     profileId: 1,
     profileName: "Red",
-    profileImage: RedImage,
+    profileImage: "red.png",
     profilePassword: "1234",
     isLocked: true,
     autoPlayNextEp: true,
@@ -16,7 +11,7 @@ const UserProfileData = [
   {
     profileId: 2,
     profileName: "Mango",
-    profileImage: MangoImage,
+    profileImage: "mango.png",
     profilePassword: "1111",
     isLocked: true,
     autoPlayNextEp: true,
@@ -25,7 +20,7 @@ const UserProfileData = [
   {
     profileId: 3,
     profileName: "Bartleby",
-    profileImage: BartlebyImage,
+    profileImage: "bartleby.png",
     profilePassword: "1122",
     isLocked: true,
     autoPlayNextEp: true,
@@ -34,7 +29,7 @@ const UserProfileData = [
   // {
   //   profileId: 4,
   //   profileName: "Robot",
-  //   profileImage: RobotImage,
+  //   profileImage: "robot.png",
   //   profilePassword: null,
   //   isLocked: false,
   //   autoPlayNextEp: true,

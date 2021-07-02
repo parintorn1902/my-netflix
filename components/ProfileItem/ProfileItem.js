@@ -4,7 +4,7 @@ import tw from "@utils/Tailwind";
 import Image from "next/image";
 
 
-function LandingProfileItem({ profileImage, profileName, isLocked, isAddProfile, showEditLayout, onClick }) {
+function ProfileItem({ profileImage, profileName, isLocked, isAddProfile, showEditLayout, onClick }) {
 
   const getProfileImageContent = () => {
     if (isAddProfile === true) {
@@ -43,7 +43,7 @@ function LandingProfileItem({ profileImage, profileName, isLocked, isAddProfile,
           {
             profileImage && (
               <Image
-                src={profileImage}
+                src={require("@assets/images/" + profileImage)}
                 alt="Profile Image"
                 layout="responsive"
                 objectFit="fill"
@@ -120,4 +120,4 @@ function LandingProfileItem({ profileImage, profileName, isLocked, isAddProfile,
   )
 }
 
-export default LandingProfileItem
+export default ProfileItem

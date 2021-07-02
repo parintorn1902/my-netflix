@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import profileSlice from './slice/profileSlice'
+import globalSlice from './slice/globalSlice'
 
 export default configureStore({
   reducer: {
-    profile: profileSlice
+    global: globalSlice
   },
 })

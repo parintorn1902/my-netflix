@@ -3,8 +3,11 @@ import tw from "@utils/Tailwind";
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import { createRef, useEffect, useState } from "react"
 import MovieItem from "./MovieItem";
+import { useSelector } from "react-redux";
 
 function MovieRow({ title, fetchUrl }) {
+
+  const searchFilter = useSelector(state => state.global.searchFilter);
 
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,11 +16,16 @@ function MovieRow({ title, fetchUrl }) {
 
   const rowRef = createRef();
 
+  const filteredMovies = movies.filter(item => 
+    item.title?.toLowerCase().includes(searchFilter.toLowerCase()) || 
+    item.name?.toLowerCase().includes(searchFilter.toLowerCase())
+  );
+
   useEffect(() => {
 
     const fetchMovies = async () => {
       const fetchResponse = await Service.get(fetchUrl);
-      console.log(`${title} :`, fetchResponse.results)
+      // console.log(`${title} :`, fetchResponse.results)
       let filterMoviesThatHasImage = fetchResponse.results.filter(item => item.backdrop_path || item.poster_path);
       setMovies(filterMoviesThatHasImage);
     }
@@ -46,11 +54,14 @@ function MovieRow({ title, fetchUrl }) {
     setCurrentPage(currentPage + 1);
   }
 
+  if(filteredMovies?.length === 0) {
+    return null;
+  }
+
   return (
     <div
       className={tw(
-        "group flex flex-col relative",
-        "py-[2em]"
+        "group flex flex-col relative"
       )}
     >
       <div
@@ -74,7 +85,7 @@ function MovieRow({ title, fetchUrl }) {
         }}
       >
         {
-          movies.map((item, index) => (
+          filteredMovies.map((item, index) => (
             <MovieItem
               key={item.id}
               movie={item}
@@ -89,7 +100,7 @@ function MovieRow({ title, fetchUrl }) {
           <div
             className={
               tw(
-                "absolute left-0 bottom-[2em] w-[3.2vw] h-[9vw]",
+                "absolute left-0 bottom-0 w-[3.2vw] h-[9vw]",
                 "flex items-center justify-center",
                 "transition duration-300",
                 "bg-[#00000030] hover:bg-[#00000080]",
@@ -107,7 +118,7 @@ function MovieRow({ title, fetchUrl }) {
           <div
             className={
               tw(
-                "absolute right-0 bottom-[2em] w-[3.2vw] h-[9vw]",
+                "absolute right-0 bottom-0 w-[3.2vw] h-[9vw]",
                 "flex items-center justify-center",
                 "transition duration-300",
                 "bg-[#00000030] hover:bg-[#00000080]",
