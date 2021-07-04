@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w400";
 
-function MovieItem({ movie, isFirstChild = false, isTabletOrMobile = false }) {
+function MovieItem({ movie, isFirstChild = false }) {
 
   const [zIndex, setZIndex] = useState("");
   const [isMouseOver, setIsMouseOver] = useState(false);
@@ -27,7 +27,7 @@ function MovieItem({ movie, isFirstChild = false, isTabletOrMobile = false }) {
   return (
     <div
       className={tw(
-        "relative inline-block",
+        "relative",
         "w-[15.2vw] mr-[5px] h-[9vw]",
         "rounded-md overflow-hidden cursor-pointer",
         isFirstChild ? "ml-[3.2vw]" : "",

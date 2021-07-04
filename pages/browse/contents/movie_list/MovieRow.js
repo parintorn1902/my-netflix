@@ -4,6 +4,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import { createRef, useEffect, useState } from "react"
 import MovieItem from "./MovieItem";
 import { useSelector } from "react-redux";
+import MoviePageBar from "./MoviePageBar";
 
 function MovieRow({ title, fetchUrl }) {
 
@@ -13,6 +14,7 @@ function MovieRow({ title, fetchUrl }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sizePerPage, setSizePerPage] = useState(6);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
 
   const rowRef = createRef();
 
@@ -69,6 +71,27 @@ function MovieRow({ title, fetchUrl }) {
     setScrollPosition(calScrollPosition);
     setCurrentPage(currentPage + 1);
   }
+  const handleMovieRowTouchStart = (e) => {
+    let startPosition = e.touches[0].clientX;
+    setTouchStart(startPosition);
+  }
+
+  const handleMovieRowTouchMove = (e) => {
+    // console.log("touch move", e.touches[0].clientX)
+    let movePosition = e.touches[0].clientX;
+    let calPosition = scrollPosition + movePosition - touchStart;
+    console.log("scrollPosition", scrollPosition)
+    console.log("movePosition", movePosition)
+    console.log("calPosition", calPosition)
+    let childWidth = rowRef.current.children[0].offsetWidth;
+    let totalChildWidth = childWidth * movies.length;
+    if(calPosition > 0) {
+      calPosition = 0;
+    } else if(Math.abs(calPosition) > totalChildWidth) {
+      calPosition = -totalChildWidth;
+    }
+    setScrollPosition(calPosition);
+  }
 
   if (filteredMovies?.length === 0) {
     return null;
@@ -78,28 +101,34 @@ function MovieRow({ title, fetchUrl }) {
     <div
       className={tw(
         "group flex flex-col relative",
-        "mb-[3vw] lg:mb-[12px] min-h-[132px]"
+        "mb-[3vw] lg:mb-[12px] min-h-[136px]"
       )}
     >
       <div
         className={tw(
           "text-[1.3em] text-white font-bold lg:text-[16px]",
-          "mb-[.5em] z-10 ml-[3.2vw] lg:mb-[12px]"
+          "z-10 ml-[3.2vw]"
         )}
       >
         {title}
       </div>
+      <MoviePageBar
+        currentPage={currentPage}
+        pageSize={Math.ceil(filteredMovies.length / sizePerPage)}
+      />
       <div
         ref={rowRef}
         className={tw(
           "group relative movie-row",
-          "whitespace-nowrap w-full h-[9vw]",
+          "flex flex-col flex-wrap w-full h-[9vw] min-h-[96px]",
           "scrollbar-hide",
           "transform transition duration-1000"
         )}
         style={{
           transform: `translateX(${scrollPosition}px)`
         }}
+        // onTouchStart={handleMovieRowTouchStart}
+        // onTouchMove={handleMovieRowTouchMove}
       >
         {
           filteredMovies.map((item, index) => (

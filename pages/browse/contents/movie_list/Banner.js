@@ -32,7 +32,7 @@ function Banner() {
     <header
       className={tw(
         "flex flex-col justify-end",
-        "h-[38vw] w-full pt-[200px]"
+        "h-[38vw] w-full md:mt-[70px]"
       )}
     >
       <div
