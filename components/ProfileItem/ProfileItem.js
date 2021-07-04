@@ -1,5 +1,6 @@
 import { LockClosedIcon } from "@heroicons/react/outline";
 import { PlusCircleIcon, PencilIcon } from "@heroicons/react/solid";
+import ImageHelper from "@utils/ImageHelper";
 import tw from "@utils/Tailwind";
 import Image from "next/image";
 
@@ -48,7 +49,8 @@ function ProfileItem({ profileImage, profileName, isLocked, isAddProfile, showEd
                 layout="responsive"
                 objectFit="fill"
                 quality={65}
-                className="bg-[#ddd]"
+                placeholder="blur"
+                blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
               />
             )
           }

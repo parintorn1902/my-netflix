@@ -16,8 +16,8 @@ function MovieRow({ title, fetchUrl }) {
 
   const rowRef = createRef();
 
-  const filteredMovies = movies.filter(item => 
-    item.title?.toLowerCase().includes(searchFilter.toLowerCase()) || 
+  const filteredMovies = movies.filter(item =>
+    item.title?.toLowerCase().includes(searchFilter.toLowerCase()) ||
     item.name?.toLowerCase().includes(searchFilter.toLowerCase())
   );
 
@@ -33,6 +33,22 @@ function MovieRow({ title, fetchUrl }) {
     fetchMovies();
 
   }, [fetchUrl]);
+
+  useEffect(() => {
+    if (rowRef.current) {
+      const getSizePerPage = () => {
+        let childWidth = rowRef.current.children[0]?.offsetWidth;
+        let sizePerPage = Math.floor(window.innerWidth / childWidth);
+        setSizePerPage(sizePerPage);
+      }
+
+      getSizePerPage();
+
+      window.addEventListener("resize", getSizePerPage);
+
+      return () => window.removeEventListener("resize", getSizePerPage);
+    }
+  }, [rowRef]);
 
   const handlePreviousPageClick = () => {
     let child = rowRef.current.children[0];
@@ -54,20 +70,21 @@ function MovieRow({ title, fetchUrl }) {
     setCurrentPage(currentPage + 1);
   }
 
-  if(filteredMovies?.length === 0) {
+  if (filteredMovies?.length === 0) {
     return null;
   }
 
   return (
     <div
       className={tw(
-        "group flex flex-col relative"
+        "group flex flex-col relative",
+        "mb-[3vw] lg:mb-[12px] min-h-[132px]"
       )}
     >
       <div
         className={tw(
-          "text-[1.3em] text-white font-bold",
-          "mb-[.5em] z-10 ml-[3.2vw]"
+          "text-[1.3em] text-white font-bold lg:text-[16px]",
+          "mb-[.5em] z-10 ml-[3.2vw] lg:mb-[12px]"
         )}
       >
         {title}
@@ -100,7 +117,7 @@ function MovieRow({ title, fetchUrl }) {
           <div
             className={
               tw(
-                "absolute left-0 bottom-0 w-[3.2vw] h-[9vw]",
+                "absolute left-0 bottom-0 w-[3.2vw] h-[9vw] min-h-[96px] min-w-[40px]",
                 "flex items-center justify-center",
                 "transition duration-300",
                 "bg-[#00000030] hover:bg-[#00000080]",
@@ -114,11 +131,11 @@ function MovieRow({ title, fetchUrl }) {
         )
       }
       {
-        ((currentPage * sizePerPage) <= movies.length) && (
+        ((currentPage * sizePerPage) < movies.length) && (
           <div
             className={
               tw(
-                "absolute right-0 bottom-0 w-[3.2vw] h-[9vw]",
+                "absolute right-0 bottom-0 w-[3.2vw] h-[9vw] min-h-[96px] min-w-[40px]",
                 "flex items-center justify-center",
                 "transition duration-300",
                 "bg-[#00000030] hover:bg-[#00000080]",

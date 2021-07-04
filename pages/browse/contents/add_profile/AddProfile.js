@@ -7,6 +7,7 @@ import Checkbox from "@components/Checkbox/Checkbox";
 import Tooltip from "@components/Tooltip/Tooltip";
 import tw from "@utils/Tailwind";
 import UserProfileApi from "@app/master/user_profiles/UserProfileApi";
+import ImageHelper from "@utils/ImageHelper";
 
 function AddProfile({ onCancel }) {
 
@@ -91,7 +92,8 @@ function AddProfile({ onCancel }) {
                 objectFit="fill"
                 src={NewProfileImage}
                 alt="Profile Image"
-                className="bg-[#ddd]"
+                placeholder="blur"
+                blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
               />
             </div>
             <div className="flex items-center justify-center">

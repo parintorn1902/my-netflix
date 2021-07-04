@@ -87,7 +87,7 @@ function NavBar({ profileData, onManageProfile, onExitProfile }) {
         <>
           <ul
             className={tw(
-              "inline-flex md:hidden",
+              "inline-flex lg:hidden",
               "space-x-[1vw] pl-[2.2vw]",
               "text-[.75vw] 2xl:text-[14px] text-white font-normal",
             )}
@@ -107,7 +107,8 @@ function NavBar({ profileData, onManageProfile, onExitProfile }) {
             <div
               className={tw(
                 "flex flex-row",
-                "cursor-pointer"
+                "cursor-pointer",
+                "md:hidden"
               )}
             >
               <div
@@ -290,7 +291,7 @@ function NavBar({ profileData, onManageProfile, onExitProfile }) {
       ref={navRef}
       className={tw(
         "fixed flex flex-row items-center top-0 left-0 z-50",
-        "w-full h-[68px] md:h-[41px]",
+        "w-full h-[68px] md:h-[52px]",
         "bg-gradient-to-b from-[#000000aa] via-[#00000050] to-transparent",
         "transition duration-300"
       )}
@@ -330,8 +331,11 @@ const NavProfileItem = ({ profileData, onClick }) => {
         className="object-contain rounded-[5px]"
         src={require("@assets/images/" + profileData?.profileImage)}
         alt={profileData?.profileName}
+        loading="eager"
+        priority
         width={32}
         height={32}
+        quality={50}
       />
       <div className="flex flex-1 ml-[10px]">{profileData?.profileName}</div>
       {

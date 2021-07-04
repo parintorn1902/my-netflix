@@ -7,6 +7,7 @@ import Divider from "@components/Divider/Divider";
 import Checkbox from "@components/Checkbox/Checkbox";
 import UserProfileApi from "@app/master/user_profiles/UserProfileApi";
 import tw from "@utils/Tailwind";
+import ImageHelper from "@utils/ImageHelper";
 
 function EditProfile({ editProfile = {}, onCancel }) {
 
@@ -106,6 +107,8 @@ function EditProfile({ editProfile = {}, onCancel }) {
                       alt="Profile Image"
                       layout="responsive"
                       objectFit="fill"
+                      placeholder="blur"
+                      blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
                     />
                   )
                 }

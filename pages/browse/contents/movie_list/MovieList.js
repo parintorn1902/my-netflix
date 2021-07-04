@@ -7,7 +7,7 @@ function MovieList() {
     <div className="flex flex-col animate-fade-in">
       <Banner />
       <div
-        className="overflow-x-hidden my-[3vw] space-y-[3vw]"
+        className="overflow-x-hidden my-[3vw]"
       >
         <MovieRow title="Popular on Netflix" fetchUrl={APIConstant.URL.POPULAR_ON_NEXFLIX} />
         {/* <MovieRow title="Netflix Originals" fetchUrl={APIConstant.URL.NEXTFLEX_ORIGINALS} /> */}

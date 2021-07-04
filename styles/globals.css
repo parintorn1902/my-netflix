@@ -96,3 +96,8 @@ body {
   visibility: visible;
   opacity: 1;
 }
+
+.movie-item {
+  min-width: 175px;
+  min-height: 96px;
+}
