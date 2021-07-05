@@ -8,6 +8,7 @@ import ThreadHelper from "@utils/ThreadHelper";
 import UserProfileData from "@app/master/user_profiles/UserProfileData";
 import { useDispatch, useSelector } from "react-redux";
 import { setPreLaunchProfile, setSearchFilter } from "@app/store/slice/globalSlice";
+import ImageHelper from "@utils/ImageHelper";
 
 function NavBar({ profileData, onManageProfile, onExitProfile }) {
 
@@ -308,6 +309,10 @@ function NavBar({ profileData, onManageProfile, onExitProfile }) {
           alt="Logo"
           layout="responsive"
           objectFit="fill"
+          loading="eager"
+          quality={30}
+          placeholder="blur"
+          blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
         />
       </div>
       {renderNavMenu()}

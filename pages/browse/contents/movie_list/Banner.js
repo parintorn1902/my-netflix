@@ -36,16 +36,14 @@ function Banner() {
       )}
     >
       <div
-        className="absolute top-0 left-0 w-full h-[56.25vw]"
-        // style={
-        //   movie && {
-        //     backgroundSize: "cover",
-        //     backgroundPosition: "center center",
-        //     backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`
-        //   }
-        // }
+        className={
+          tw(
+            "absolute top-0 left-0",
+            "w-full h-[56.25vw]"
+          )
+        }
       >
-        <Image 
+        <Image
           src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
           layout="fill"
           placeholder="blur"
@@ -54,7 +52,13 @@ function Banner() {
           // quality={65}
           priority
         />
-        <div className="absolute bottom-0 bg-gradient-to-t from-[#141414] to-transparent h-[5vw] w-full" />
+        <div
+          className={tw(
+            "absolute bottom-0",
+            "h-[5vw] w-full",
+            "bg-gradient-to-t from-[#141414] to-transparent"
+          )}
+        />
       </div>
       <div className="text-white pl-[3.2vw] z-20 pb-[3vw]">
         <h1
