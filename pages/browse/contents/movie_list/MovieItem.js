@@ -28,13 +28,13 @@ function MovieItem({ movie, isFirstChild = false }) {
     <div
       className={tw(
         "relative",
-        "w-[15.2vw] mr-[5px] h-[9vw]",
+        "min-w-[15.2vw] mr-[5px] min-h-[9vw]",
+        "lg:min-w-[175px] lg:min-h-[96px]",
         "rounded-md overflow-hidden cursor-pointer",
         isFirstChild ? "ml-[3.2vw]" : "",
         "transform transition duration-300",
         zIndex,
-        "hover:scale-125",
-        "movie-item"
+        "hover:scale-125"
       )}
       onMouseEnter={handleMouseOver}
       onMouseLeave={handleMouseOut}

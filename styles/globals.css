@@ -96,12 +96,3 @@ body {
   visibility: visible;
   opacity: 1;
 }
-
-.movie-row {
-  scroll-behavior: smooth;
-}
-
-.movie-item {
-  min-width: 175px;
-  min-height: 96px;
-}

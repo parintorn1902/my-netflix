@@ -119,8 +119,8 @@ function MovieRow({ title, fetchUrl }) {
       <div
         ref={rowRef}
         className={tw(
-          "group relative movie-row",
-          "flex flex-col flex-wrap w-full h-[9vw] min-h-[96px]",
+          "group relative",
+          "flex flex-row flex-nowrap w-full h-[9vw] min-h-[96px]",
           "scrollbar-hide",
           "transform transition duration-1000"
         )}
@@ -160,7 +160,7 @@ function MovieRow({ title, fetchUrl }) {
         )
       }
       {
-        ((currentPage * sizePerPage) < movies.length) && (
+        ((currentPage * sizePerPage) < filteredMovies.length) && (
           <div
             className={
               tw(
