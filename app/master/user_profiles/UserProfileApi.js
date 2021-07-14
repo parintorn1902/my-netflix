@@ -20,8 +20,8 @@ class UserProfileApi {
    */
   static addUserProfile(profileName) {
 
-    if(UserProfileData.length + 1 > 5) {
-      alert("Cannot add new profile (maximun is 5 profiles)");
+    if(UserProfileData.length + 1 > 4) {
+      alert("Cannot add new profile (maximun is 4 profiles)");
       return;
     }
 

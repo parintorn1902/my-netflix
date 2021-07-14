@@ -40,7 +40,7 @@ function Browse() {
         }
         setCurrentContent(CONTENT.AUTHEN_PROFILE);
       } else {
-        GlobalManager.setLaunchProfile(preLaunchProfileData);
+        handleLaunchProfile();
       }
     }
   }, [preLaunchProfileData]);
@@ -79,7 +79,7 @@ function Browse() {
 
   const handleSelectProfile = (selectedProfile) => {
     if (currentContent === CONTENT.MANAGE_PROFILES) {
-      // edit profile      
+      // edit profile
       GlobalManager.setProfile(selectedProfile);
       setCurrentContent(CONTENT.EDIT_PROFILE);
     } else {
@@ -125,7 +125,7 @@ function Browse() {
 
   const renderContent = () => {
     if (currentContent === CONTENT.MOVIE_LIST) {
-      return <MovieList />
+      return <MovieList profileData={launchProfileData} />
     } else if (currentContent === CONTENT.SELECT_PROFILES) {
       return (
         <SelectProfiles
