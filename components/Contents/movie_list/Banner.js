@@ -8,41 +8,29 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 function Banner() {
-
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
-
     const fetchMovie = async () => {
       let fetchResponse = await Service.get(APIConstant.URL.NEXTFLEX_ORIGINALS);
-      let randomBanner = fetchResponse.results[Math.floor(Math.random() * fetchResponse.results.length - 1)];
-      // console.log("banner movie", randomBanner);
-      if (randomBanner) {
-        setMovie(randomBanner);
-      } else {
-        setMovie(fetchResponse.results[0]);
+      if (fetchResponse.success) {
+        let results = fetchResponse.data.results;
+        let randomBanner = results[Math.floor(Math.random() * results.length - 1)];
+        // console.log("banner movie", randomBanner);
+        if (randomBanner) {
+          setMovie(randomBanner);
+        } else {
+          setMovie(results[0]);
+        }
       }
-    }
+    };
 
     fetchMovie();
-
   }, []);
 
   return (
-    <header
-      className={tw(
-        "flex flex-col justify-end",
-        "h-[38vw] w-full md:mt-[70px]"
-      )}
-    >
-      <div
-        className={
-          tw(
-            "absolute top-0 left-0",
-            "w-full h-[56.25vw]"
-          )
-        }
-      >
+    <header className={tw("flex flex-col justify-end", "h-[38vw] w-full md:mt-[70px]")}>
+      <div className={tw("absolute top-0 left-0", "w-full h-[56.25vw]")}>
         <Image
           src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
           layout="fill"
@@ -61,12 +49,7 @@ function Banner() {
         />
       </div>
       <div className="text-white pl-[3.2vw] z-20 pb-[3vw]">
-        <h1
-          className={tw(
-            "text-[3.5vw] lg:text-[16px] lg:font-bold leading-none",
-            "max-w-lg"
-          )}
-        >
+        <h1 className={tw("text-[3.5vw] lg:text-[16px] lg:font-bold leading-none", "max-w-lg")}>
           {movie?.name}
         </h1>
         <span className="max-w-lg line-clamp-3 mt-[2vw] pr-[10px] xl:text-[14px]">
@@ -100,8 +83,7 @@ function Banner() {
         </div>
       </div>
     </header>
-  )
+  );
 }
 
-export default Banner
-
+export default Banner;
