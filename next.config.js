@@ -1,15 +1,7 @@
 module.exports = {
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/browse',
-        permanent: true,
-      },
-    ]
-  },
+  target: "serverless",
   images: {
-    domains: ["image.tmdb.org"]
+    domains: ["image.tmdb.org"],
   },
   reactStrictMode: true,
   eslint: {
@@ -17,4 +9,4 @@ module.exports = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
-}
+};

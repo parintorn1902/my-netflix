@@ -1,13 +1,13 @@
 import Cookie from "js-cookie";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import EditProfile from "./contents/edit_profile/EditProfile";
+import EditProfile from "../../components/Contents/edit_profile/EditProfile";
 import NavBar from "@components/NavBar/NavBar";
-import SelectProfiles from "./contents/select_profiles/SelectProfiles";
-import ManageProfiles from "./contents/manage_profiles/ManageProfiles";
-import AuthenProfile from "./contents/authen_profile/AuthenProfile";
-import AddProfile from "./contents/add_profile/AddProfile";
-import MovieList from "./contents/movie_list/MovieList";
+import SelectProfiles from "../../components/Contents/select_profiles/SelectProfiles";
+import ManageProfiles from "../../components/Contents/manage_profiles/ManageProfiles";
+import AuthenProfile from "../../components/Contents/authen_profile/AuthenProfile";
+import AddProfile from "../../components/Contents/add_profile/AddProfile";
+import MovieList from "../../components/Contents/movie_list/MovieList";
 import UserProfileApi from "@app/master/user_profiles/UserProfileApi";
 import GlobalManager from "@app/store/manage/GlobalManager";
 
@@ -21,10 +21,9 @@ const CONTENT = {
 };
 
 function Browse() {
-
-  const profileData = useSelector(state => state.global.profileData);
-  const launchProfileData = useSelector(state => state.global.launchProfileData);
-  const preLaunchProfileData = useSelector(state => state.global.preLaunchProfileData);
+  const profileData = useSelector((state) => state.global.profileData);
+  const launchProfileData = useSelector((state) => state.global.launchProfileData);
+  const preLaunchProfileData = useSelector((state) => state.global.preLaunchProfileData);
 
   const [currentContent, setCurrentContent] = useState(CONTENT.SELECT_PROFILES);
   const [previousContent, setPreviousContent] = useState(null);
@@ -53,7 +52,6 @@ function Browse() {
         GlobalManager.setLaunchProfile(initialProfileData);
         setCurrentContent(CONTENT.MOVIE_LIST);
       }
-
     }
   }, []);
 
@@ -72,10 +70,11 @@ function Browse() {
         GlobalManager.setLaunchProfile(backupProfielData);
         setBackupProfileData(null);
       }
-      let displayContent = launchProfileData || hasBackup ? CONTENT.MOVIE_LIST : CONTENT.SELECT_PROFILES;
+      let displayContent =
+        launchProfileData || hasBackup ? CONTENT.MOVIE_LIST : CONTENT.SELECT_PROFILES;
       setCurrentContent(displayContent);
     }
-  }
+  };
 
   const handleSelectProfile = (selectedProfile) => {
     if (currentContent === CONTENT.MANAGE_PROFILES) {
@@ -86,46 +85,46 @@ function Browse() {
       // launch profile
       GlobalManager.setPreLaunchProfile(selectedProfile);
     }
-  }
+  };
 
   const handleDoneManageProfile = () => {
     // setPreviousContent(currentContent);
     setCurrentContent(CONTENT.SELECT_PROFILES);
-  }
+  };
 
   const handleStartManageProfile = () => {
     // setPreviousContent(currentContent);
     setCurrentContent(CONTENT.MANAGE_PROFILES);
-  }
+  };
 
   const handleAddProfile = () => {
     setPreviousContent(currentContent);
     setCurrentContent(CONTENT.ADD_PROFILE);
-  }
+  };
 
   const handleLaunchProfile = () => {
-    Cookie.set("mnf_id", preLaunchProfileData.profileId, { expires: (1 / 96) });
-    GlobalManager.setLaunchProfile(preLaunchProfileData)
+    Cookie.set("mnf_id", preLaunchProfileData.profileId, { expires: 1 / 96 });
+    GlobalManager.setLaunchProfile(preLaunchProfileData);
     GlobalManager.setPreLaunchProfile(null);
     setCurrentContent(CONTENT.MOVIE_LIST);
     setBackupProfileData(null);
-  }
+  };
 
   const handleManageProfileOnNavBar = () => {
     Cookie.remove("mnf_id");
     GlobalManager.clearAll();
     setCurrentContent(CONTENT.MANAGE_PROFILES);
-  }
+  };
 
   const handleExitProfile = () => {
     Cookie.remove("mnf_id");
     GlobalManager.clearAll();
     setCurrentContent(CONTENT.SELECT_PROFILES);
-  }
+  };
 
   const renderContent = () => {
     if (currentContent === CONTENT.MOVIE_LIST) {
-      return <MovieList profileData={launchProfileData} />
+      return <MovieList profileData={launchProfileData} />;
     } else if (currentContent === CONTENT.SELECT_PROFILES) {
       return (
         <SelectProfiles
@@ -151,18 +150,13 @@ function Browse() {
         />
       );
     } else if (currentContent === CONTENT.EDIT_PROFILE) {
-      return (
-        <EditProfile
-          editProfile={profileData}
-          onCancel={handleCancelContentClick}
-        />
-      );
+      return <EditProfile editProfile={profileData} onCancel={handleCancelContentClick} />;
     } else if (currentContent === CONTENT.ADD_PROFILE) {
-      return <AddProfile onCancel={handleCancelContentClick} />
+      return <AddProfile onCancel={handleCancelContentClick} />;
     } else {
       return null;
     }
-  }
+  };
 
   return (
     <div className="h-full">
@@ -173,7 +167,7 @@ function Browse() {
       />
       {renderContent()}
     </div>
-  )
+  );
 }
 
-export default Browse
+export default Browse;
