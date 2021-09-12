@@ -16,10 +16,11 @@ module.exports = {
   env: {
     SERVICE_URL: process.env.SERVICE_URL,
     BASE_PATH: process.env.BASE_PATH,
+    IMAGE_DOMAIN: process.env.IMAGE_DOMAIN,
   },
   target: "serverless",
   images: {
-    domains: ["image.tmdb.org"],
+    domains: ["image.tmdb.org", "parintorn.site"],
     path: `${process.env.BASE_PATH || ""}/_next/image`,
   },
   reactStrictMode: true,

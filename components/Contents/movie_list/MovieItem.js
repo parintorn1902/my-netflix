@@ -1,13 +1,12 @@
-import ImageHelper from '@utils/ImageHelper';
-import tw from '@utils/Tailwind';
-import ThreadHelper from '@utils/ThreadHelper';
-import Image from 'next/image';
-import { useState } from 'react';
+import ImageHelper from "@utils/ImageHelper";
+import tw from "@utils/Tailwind";
+import ThreadHelper from "@utils/ThreadHelper";
+import Image from "next/image";
+import { useState } from "react";
 
-const imageBaseUrl = "https://image.tmdb.org/t/p/w400";
+const imageBaseUrl = `https://${process.env.IMAGE_DOMAIN}/t/p/w400`;
 
 function MovieItem({ movie, isFirstChild = false }) {
-
   const [zIndex, setZIndex] = useState("");
   const [isMouseOver, setIsMouseOver] = useState(false);
 
@@ -16,13 +15,13 @@ function MovieItem({ movie, isFirstChild = false }) {
   const handleMouseOver = () => {
     setZIndex("z-[100]");
     setIsMouseOver(true);
-  }
+  };
 
   const handleMouseOut = async () => {
     setIsMouseOver(false);
     await ThreadHelper.sleep(75);
     setZIndex("");
-  }
+  };
 
   return (
     <div
@@ -56,13 +55,15 @@ function MovieItem({ movie, isFirstChild = false }) {
           isMouseOver ? "opacity-100" : "opacity-0"
         )}
       >
-        <span className="whitespace-pre-wrap text-[1vw] lg:text-[14px] font-bold">{movie?.name || movie?.title}</span>
+        <span className="whitespace-pre-wrap text-[1vw] lg:text-[14px] font-bold">
+          {movie?.name || movie?.title}
+        </span>
         <span className="whitespace-pre-wrap text-[.75vw] lg:text-[12px] line-clamp-2">
           {movie?.overview}
         </span>
       </div>
     </div>
-  )
+  );
 }
 
-export default MovieItem
+export default MovieItem;

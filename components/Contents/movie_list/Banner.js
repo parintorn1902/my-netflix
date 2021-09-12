@@ -7,6 +7,8 @@ import tw from "@utils/Tailwind";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+const imageBaseUrl = `https://${process.env.IMAGE_DOMAIN}/t/p/original`;
+
 function Banner() {
   const [movie, setMovie] = useState(null);
 
@@ -32,7 +34,7 @@ function Banner() {
     <header className={tw("flex flex-col justify-end", "h-[38vw] w-full md:mt-[70px]")}>
       <div className={tw("absolute top-0 left-0", "w-full h-[56.25vw]")}>
         <Image
-          src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
+          src={imageBaseUrl + movie?.backdrop_path}
           layout="fill"
           placeholder="blur"
           blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
