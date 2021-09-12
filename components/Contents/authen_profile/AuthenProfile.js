@@ -6,7 +6,6 @@ import tw from "@utils/Tailwind";
 const BACK_SPACE_KEY = "Backspace";
 
 function AuthenProfile({ profileData = {}, onLaunchProfile, onCancel }) {
-
   const { profilePassword } = profileData;
 
   const [ready, setReady] = useState(true);
@@ -24,64 +23,64 @@ function AuthenProfile({ profileData = {}, onLaunchProfile, onCancel }) {
   const pin4Ref = createRef();
   const pinParent = createRef();
 
-  const handlePin1Change = ({ target}) => {
+  const handlePin1Change = ({ target }) => {
     setPin1(target.value);
     if (target.value !== "") {
       pin2Ref.current.focus();
     }
-  }
+  };
 
   const handlePin2Change = ({ target }) => {
     setPin2(target.value);
     if (target.value !== "") {
       pin3Ref.current.focus();
     }
-  }
+  };
 
   const handlePin2KeyDown = ({ key }) => {
-    if(key === BACK_SPACE_KEY) {
+    if (key === BACK_SPACE_KEY) {
       pin1Ref.current.focus();
       pin1Ref.current.select();
     }
-  }
+  };
 
   const handlePin3Change = ({ target }) => {
     setPin3(target.value);
     if (target.value !== "") {
       pin4Ref.current.focus();
     }
-  }
+  };
 
   const handlePin3KeyDown = ({ key }) => {
-    if(key === BACK_SPACE_KEY) {
+    if (key === BACK_SPACE_KEY) {
       pin2Ref.current.focus();
       pin2Ref.current.select();
     }
-  }
+  };
 
   const handlePin4Change = ({ target }) => {
     setPin4(target.value);
-  }
+  };
 
   const handlePin4KeyDown = ({ key }) => {
-    if(key === BACK_SPACE_KEY) {
+    if (key === BACK_SPACE_KEY) {
       pin3Ref.current.focus();
       pin3Ref.current.select();
     }
-  }
+  };
 
   const validtePinLength = () => {
     let combinePin = pin1 + pin2 + pin3 + pin4;
     if (combinePin.length < 4) {
       setShowPinLengthError(true);
     }
-  }
+  };
 
   const handleShowPINClick = async () => {
     setShowPIN(true);
     await ThreadHelper.sleep(3000);
     setShowPIN(false);
-  }
+  };
 
   const handleSubmit = async (userFillInPin) => {
     // clear animation class
@@ -103,9 +102,8 @@ function AuthenProfile({ profileData = {}, onLaunchProfile, onCancel }) {
 
       pin1Ref.current.focus();
       pinParent.current.classList.add(animateClassName);
-
     }
-  }
+  };
 
   useEffect(() => {
     // reset
@@ -131,13 +129,8 @@ function AuthenProfile({ profileData = {}, onLaunchProfile, onCancel }) {
         "bg-[#040404] z-10 transition duration-300 animate-fade-in"
       )}
     >
-
       <div
-        className={tw(
-          "absolute",
-          "top-[100px] right-[30px] w-[3vw] lg:w-[30px]",
-          "cursor-pointer"
-        )}
+        className={tw("absolute", "top-[100px] right-[30px] w-[3vw] lg:w-[30px]", "cursor-pointer")}
         onClick={onCancel}
       >
         <XIcon className="text-white" />
@@ -151,16 +144,12 @@ function AuthenProfile({ profileData = {}, onLaunchProfile, onCancel }) {
             showPinInvalidError ? "text-[#e6b029]" : "text-white"
           )}
         >
-          {showPinInvalidError ? "Whoops, wrong PIN. Please try again." : "Enter your PIN to access this profile."}
+          {showPinInvalidError
+            ? "Whoops, wrong PIN. Please try again."
+            : "Enter your PIN to access this profile."}
         </span>
 
-        <div
-          ref={pinParent}
-          className={tw(
-            "flex flex-row",
-            "my-[3em] space-x-[.4em]"
-          )}
-        >
+        <div ref={pinParent} className={tw("flex flex-row", "my-[3em] space-x-[.4em]")}>
           <PinInput
             ref={pin1Ref}
             value={pin1}
@@ -193,30 +182,15 @@ function AuthenProfile({ profileData = {}, onLaunchProfile, onCancel }) {
           Your PIN must be 4 numbers.
         </p>
 
-        <div
-          className="absolute bottom-[5vw] cursor-pointer"
-          onClick={handleShowPINClick}
-        >
-          {
-            showPIN ? (
-              <p className="text-white animate-bounce">
-                Your PIN is {profilePassword}
-              </p>
-            ) : (
-              <a className="text-[#ccc] px-[1em] py-[.5em] transition duration-300 hover:scale-110 hover:bg-[#33333366]">
-                Forgot PIN?
-              </a>
-            )
-          }
-
+        <div className="absolute bottom-[5vw] cursor-pointer" onClick={handleShowPINClick}>
+          <p className="text-white animate-bounce">Your PIN is {profilePassword}</p>
         </div>
       </div>
-
     </div>
-  )
+  );
 }
 
-export default AuthenProfile
+export default AuthenProfile;
 
 const PinInput = forwardRef(({ value, onChange, onBlur, onKeyDown }, ref) => {
   return (
@@ -233,5 +207,5 @@ const PinInput = forwardRef(({ value, onChange, onBlur, onKeyDown }, ref) => {
       onBlur={onBlur}
       autoComplete="off"
     />
-  )
+  );
 });
