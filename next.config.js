@@ -1,8 +1,10 @@
+const basePath = process.env.BASE_PATH || "";
+
 module.exports = {
   async headers() {
     return [
       {
-        source: `${process.env.BASE_PATH || ""}/_next/image(.*)`,
+        source: `${basePath}/_next/image(.*)`,
         headers: [
           {
             key: "Cache-Control",
@@ -12,7 +14,7 @@ module.exports = {
       },
     ];
   },
-  assetPrefix: process.env.BASE_PATH || "",
+  assetPrefix: basePath,
   env: {
     SERVICE_URL: process.env.SERVICE_URL,
     BASE_PATH: process.env.BASE_PATH,
@@ -21,7 +23,7 @@ module.exports = {
   target: "serverless",
   images: {
     domains: ["image.tmdb.org", "parintorn.site"],
-    path: `${process.env.BASE_PATH || ""}/_next/image`,
+    path: `${basePath}/_next/image`,
   },
   reactStrictMode: true,
   eslint: {

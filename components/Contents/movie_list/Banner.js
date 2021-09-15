@@ -31,7 +31,7 @@ function Banner() {
   }, []);
 
   return (
-    <header className={tw("flex flex-col justify-end", "h-[38vw] w-full md:mt-[70px]")}>
+    <header className={tw("flex flex-col justify-end", "h-[38vw] w-full md:mt-[70px] z-[-1]")}>
       <div className={tw("absolute top-0 left-0", "w-full h-[56.25vw]")}>
         <Image
           src={imageBaseUrl + movie?.backdrop_path}

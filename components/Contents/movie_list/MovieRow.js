@@ -1,12 +1,12 @@
 import Service from "@app/core/Service";
 import tw from "@utils/Tailwind";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
-import { createRef, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MovieItem from "./MovieItem";
 import { useSelector } from "react-redux";
 import MoviePageBar from "./MoviePageBar";
 
-function MovieRow({ title, fetchUrl }) {
+function MovieRow({ title, fetchUrl, rowIndex, onMouseEnter }) {
   const searchFilter = useSelector((state) => state.global.searchFilter);
 
   const [movies, setMovies] = useState([]);
@@ -15,7 +15,7 @@ function MovieRow({ title, fetchUrl }) {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
 
-  const rowRef = createRef();
+  const rowRef = useRef();
 
   const filteredMovies = movies.filter(
     (item) =>
@@ -52,7 +52,7 @@ function MovieRow({ title, fetchUrl }) {
 
       return () => window.removeEventListener("resize", getSizePerPage);
     }
-  }, [rowRef]);
+  }, [rowRef.current]);
 
   const handlePreviousPageClick = () => {
     let child = rowRef.current.children[0];
@@ -95,13 +95,17 @@ function MovieRow({ title, fetchUrl }) {
     setScrollPosition(calPosition);
   };
 
+  const handleMouseEnter = (movie, colIndex, targetRef) => {
+    onMouseEnter({ row: rowIndex, col: colIndex, movie, targetRef });
+  };
+
   if (filteredMovies?.length === 0) {
     return null;
   }
 
   return (
     <div className={tw("group flex flex-col relative", "mb-[3vw] lg:mb-[12px] min-h-[136px]")}>
-      <div className={tw("text-[1.3em] text-white font-bold lg:text-[16px]", "z-10 ml-[3.2vw]")}>
+      <div className={tw("text-[1.3em] text-white font-bold lg:text-[16px]", "ml-[3.2vw]")}>
         {title}
       </div>
       <MoviePageBar
@@ -111,9 +115,9 @@ function MovieRow({ title, fetchUrl }) {
       <div
         ref={rowRef}
         className={tw(
-          "group relative",
-          "flex flex-row flex-nowrap w-full h-[9vw] min-h-[96px]",
-          "scrollbar-hide",
+          "group",
+          "flex w-max h-[9vw] min-h-[96px]",
+          // "scrollbar-hide",
           "transform transition duration-1000"
         )}
         style={{
@@ -123,7 +127,13 @@ function MovieRow({ title, fetchUrl }) {
         // onTouchMove={handleMovieRowTouchMove}
       >
         {filteredMovies.map((item, index) => (
-          <MovieItem key={item.id} movie={item} isFirstChild={index === 0} />
+          <MovieItem
+            key={item.id}
+            movie={item}
+            isFirstChild={index === 0}
+            itemIndex={index}
+            onMouseEnter={handleMouseEnter}
+          />
         ))}
       </div>
       {/** Control slide */}
