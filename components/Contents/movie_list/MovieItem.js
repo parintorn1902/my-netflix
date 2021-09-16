@@ -19,7 +19,7 @@ function MovieItem({ movie, isFirstChild = false, itemIndex, onMouseEnter }) {
       if (timeStampRef.current) {
         onMouseEnter(movie, itemIndex, e.target);
       }
-    }, 200);
+    }, 400);
   };
 
   const handleMouseOut = () => {
