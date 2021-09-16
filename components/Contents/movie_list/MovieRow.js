@@ -13,7 +13,6 @@ function MovieRow({ title, fetchUrl, rowIndex, onMouseEnter }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sizePerPage, setSizePerPage] = useState(6);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [touchStart, setTouchStart] = useState(0);
 
   const rowRef = useRef();
 
@@ -73,30 +72,9 @@ function MovieRow({ title, fetchUrl, rowIndex, onMouseEnter }) {
     setScrollPosition(calScrollPosition);
     setCurrentPage(currentPage + 1);
   };
-  const handleMovieRowTouchStart = (e) => {
-    let startPosition = e.touches[0].clientX;
-    setTouchStart(startPosition);
-  };
 
-  const handleMovieRowTouchMove = (e) => {
-    // console.log("touch move", e.touches[0].clientX)
-    let movePosition = e.touches[0].clientX;
-    let calPosition = scrollPosition + movePosition - touchStart;
-    console.log("scrollPosition", scrollPosition);
-    console.log("movePosition", movePosition);
-    console.log("calPosition", calPosition);
-    let childWidth = rowRef.current.children[0].offsetWidth;
-    let totalChildWidth = childWidth * movies.length;
-    if (calPosition > 0) {
-      calPosition = 0;
-    } else if (Math.abs(calPosition) > totalChildWidth) {
-      calPosition = -totalChildWidth;
-    }
-    setScrollPosition(calPosition);
-  };
-
-  const handleMouseEnter = (movie, colIndex, targetRef) => {
-    onMouseEnter({ row: rowIndex, col: colIndex, movie, targetRef });
+  const handleMouseEnter = (targetData, colIndex, targetRef) => {
+    onMouseEnter({ row: rowIndex, col: colIndex, targetData, targetRef });
   };
 
   if (filteredMovies?.length === 0) {

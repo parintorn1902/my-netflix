@@ -11,6 +11,14 @@ const APIConstant = {
     HORROR_MOVIES: `${BASE_URL}/discover/movie?with_genres=27`,
     ROMANCE_MOVIES: `${BASE_URL}/discover/movie?with_genres=10749`,
     DOCUMENTARIES: `${BASE_URL}/discover/movie?with_genres=99`,
+    MOVIE_GENRES: `${BASE_URL}/genre/movie/list`,
+    TV_GENRES: `${BASE_URL}/genre/tv/list`,
+    MOVIE_VIDEOS: (movieId) => {
+      return `${BASE_URL}/movie/${movieId}/videos?append_to_response=videos`;
+    },
+    TV_VIDEOS: (tvId) => {
+      return `${BASE_URL}/tv/${tvId}/videos?append_to_response=videos`;
+    },
   },
 };
 

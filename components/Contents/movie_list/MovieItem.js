@@ -1,16 +1,29 @@
 import ImageHelper from "@utils/ImageHelper";
 import tw from "@utils/Tailwind";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const imageBaseUrl = `https://${process.env.IMAGE_DOMAIN}/t/p/w400`;
 
 function MovieItem({ movie, isFirstChild = false, itemIndex, onMouseEnter }) {
+  const [timeStamp, setTimeStamp] = useState(0);
   const itemRef = useRef();
+  const timeStampRef = useRef(timeStamp);
+  timeStampRef.current = timeStamp;
   const imagePath = movie?.backdrop_path ? movie?.backdrop_path : movie?.poster_path;
 
-  const handleMouseOver = (e) => {
-    onMouseEnter(movie, itemIndex, e.target);
+  const handleMouseEnter = (e) => {
+    // onMouseEnter(movie, itemIndex, e.target);
+    setTimeStamp(1);
+    setTimeout(() => {
+      if (timeStampRef.current) {
+        onMouseEnter(movie, itemIndex, e.target);
+      }
+    }, 200);
+  };
+
+  const handleMouseOut = () => {
+    setTimeStamp(0);
   };
 
   return (
@@ -22,7 +35,8 @@ function MovieItem({ movie, isFirstChild = false, itemIndex, onMouseEnter }) {
         "rounded-md overflow-hidden cursor-pointer",
         isFirstChild ? "ml-[3.2vw]" : ""
       )}
-      onMouseEnter={handleMouseOver}
+      onMouseEnter={handleMouseEnter}
+      onMouseOut={handleMouseOut}
     >
       <div
         className={tw(

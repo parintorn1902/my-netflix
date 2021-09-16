@@ -16,6 +16,7 @@ module.exports = {
   },
   assetPrefix: basePath,
   env: {
+    ENV: process.env.ENV,
     SERVICE_URL: process.env.SERVICE_URL,
     BASE_PATH: process.env.BASE_PATH,
     IMAGE_DOMAIN: process.env.IMAGE_DOMAIN,

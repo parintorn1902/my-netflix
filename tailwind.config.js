@@ -44,12 +44,10 @@ module.exports = {
         },
         "pop-in": {
           from: {
-            transform: "scale(0.7) translateY(15%)",
-            opacity: "0.9",
+            transform: "scale(0.7) translateY(20%)",
           },
           to: {
             transform: "scale(1) translateY(0)",
-            opacity: "1",
           },
         },
       },
