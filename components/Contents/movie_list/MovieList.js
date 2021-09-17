@@ -43,6 +43,7 @@ function MovieList({ profileData }) {
   useEffect(() => {
     if (popItem) {
       console.log("Pop", popItem);
+      setPopVideo(null);
       fetchPopVideos();
     }
   }, [popItem]);
