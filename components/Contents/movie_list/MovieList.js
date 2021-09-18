@@ -36,6 +36,7 @@ function MovieList({ profileData }) {
     if (popItem) {
       console.log("Pop", popItem);
       setPopVideo(null);
+      setPopCredits(null);
       fetchPopVideos();
       fetchPopCredits();
     }
@@ -122,6 +123,7 @@ function MovieList({ profileData }) {
     console.log("Leave");
     setPopItem(null);
     setPopVideo(null);
+    setPopCredits(null);
   };
 
   const renderMoviePreview = () => {
