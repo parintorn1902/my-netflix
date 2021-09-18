@@ -8,9 +8,16 @@ I try to building a clone of Netflix website but only profile management page
 
 # if you use NPM
 
+```
 npm install
+```
+```
 npm run dev
-
+```
 # if you use YARN
+```
 yarn install
+```
+```
 yarn dev
+```
