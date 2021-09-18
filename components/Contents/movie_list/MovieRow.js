@@ -5,14 +5,17 @@ import { useEffect, useRef, useState } from "react";
 import MovieItem from "./MovieItem";
 import { useSelector } from "react-redux";
 import MoviePageBar from "./MoviePageBar";
+import DeviceHelper from "@utils/DeviceHelper";
 
-function MovieRow({ title, fetchUrl, rowIndex, onMouseEnter }) {
+function MovieRow({ title, fetchUrl, rowIndex, mediaType, onMouseEnter }) {
   const searchFilter = useSelector((state) => state.global.searchFilter);
 
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sizePerPage, setSizePerPage] = useState(6);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchMove, setTouchMove] = useState(null);
 
   const rowRef = useRef();
 
@@ -73,8 +76,40 @@ function MovieRow({ title, fetchUrl, rowIndex, onMouseEnter }) {
     setCurrentPage(currentPage + 1);
   };
 
-  const handleMouseEnter = (targetData, colIndex, targetRef) => {
-    onMouseEnter({ row: rowIndex, col: colIndex, targetData, targetRef });
+  const handleMouseEnter = (eventData) => {
+    onMouseEnter({ ...eventData, mediaType, row: rowIndex });
+  };
+
+  const handleMovieRowTouchStart = (e) => {
+    if (DeviceHelper.isTouchDevice()) {
+      setTouchStart(e.touches[0].clientX);
+    }
+  };
+
+  const handleMovieRowTouchMove = (e) => {
+    if (DeviceHelper.isTouchDevice()) {
+      setTouchMove(e.touches[0].clientX);
+    }
+  };
+
+  const handleMovieRowTouchEnd = () => {
+    if (DeviceHelper.isTouchDevice() && touchStart && touchMove) {
+      const diff = touchMove - touchStart;
+      if (diff > 50) {
+        // swipe right
+        if (currentPage > 1) {
+          handlePreviousPageClick();
+        }
+      } else if (diff < -50) {
+        // swipe left
+        const totalPage = filteredMovies.length / sizePerPage;
+        if (currentPage < totalPage) {
+          handleNextPageClick();
+        }
+      }
+    }
+    setTouchStart(null);
+    setTouchMove(null);
   };
 
   if (filteredMovies?.length === 0) {
@@ -95,14 +130,15 @@ function MovieRow({ title, fetchUrl, rowIndex, onMouseEnter }) {
         className={tw(
           "group",
           "flex w-max h-[9vw] min-h-[96px]",
-          // "scrollbar-hide",
+          "scrollbar-hide",
           "transform transition duration-1000"
         )}
         style={{
           transform: `translateX(${scrollPosition}px)`,
         }}
-        // onTouchStart={handleMovieRowTouchStart}
-        // onTouchMove={handleMovieRowTouchMove}
+        onTouchStart={handleMovieRowTouchStart}
+        onTouchMove={handleMovieRowTouchMove}
+        onTouchEnd={handleMovieRowTouchEnd}
       >
         {filteredMovies.map((item, index) => (
           <MovieItem

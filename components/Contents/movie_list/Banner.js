@@ -60,7 +60,7 @@ function Banner() {
         <div className="flex flex-row mt-[2vw] space-x-[1vw]">
           <span
             className={tw(
-              "flex flex-row w-[fit-content]",
+              "flex flex-row w-[fit-content] lg:h-8",
               "py-[.5vw] px-[1.5vw] xl:px-[15px] xl:py-[5px]",
               "bg-white rounded-md cursor-pointer",
               "text-black text-[1.2vw] xl:text-[14px] font-bold",
@@ -72,7 +72,7 @@ function Banner() {
           </span>
           <a
             className={tw(
-              "flex flex-row w-[fit-content]",
+              "flex flex-row w-[fit-content] lg:h-8",
               "py-[.5vw] px-[1.5vw] xl:px-[15px] xl:py-[5px]",
               "bg-[#6d6d6eb3] rounded-md cursor-pointer",
               "text-white text-[1.2vw] xl:text-[14px] font-bold",

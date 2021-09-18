@@ -1,3 +1,4 @@
+import DeviceHelper from "@utils/DeviceHelper";
 import ImageHelper from "@utils/ImageHelper";
 import tw from "@utils/Tailwind";
 import Image from "next/image";
@@ -13,17 +14,34 @@ function MovieItem({ movie, isFirstChild = false, itemIndex, onMouseEnter }) {
   const imagePath = movie?.backdrop_path ? movie?.backdrop_path : movie?.poster_path;
 
   const handleMouseEnter = (e) => {
-    // onMouseEnter(movie, itemIndex, e.target);
     setTimeStamp(1);
-    setTimeout(() => {
-      if (timeStampRef.current) {
-        onMouseEnter(movie, itemIndex, e.target);
-      }
-    }, 400);
+    if (!DeviceHelper.isTouchDevice()) {
+      setTimeout(() => {
+        if (timeStampRef.current) {
+          onMouseEnter({
+            col: itemIndex,
+            targetData: movie,
+            targetRef: e.target,
+            isTouch: false,
+          });
+        }
+      }, 400);
+    }
   };
 
   const handleMouseOut = () => {
     setTimeStamp(0);
+  };
+
+  const handlePress = (e) => {
+    if (DeviceHelper.isTouchDevice()) {
+      onMouseEnter({
+        col: itemIndex,
+        targetData: movie,
+        targetRef: e.target,
+        isTouch: true,
+      });
+    }
   };
 
   return (
@@ -35,6 +53,7 @@ function MovieItem({ movie, isFirstChild = false, itemIndex, onMouseEnter }) {
         "rounded-md overflow-hidden cursor-pointer",
         isFirstChild ? "ml-[3.2vw]" : ""
       )}
+      onClick={handlePress}
       onMouseEnter={handleMouseEnter}
       onMouseOut={handleMouseOut}
     >
