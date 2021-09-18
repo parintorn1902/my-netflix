@@ -2,7 +2,7 @@
 
 This project is using Next.js and Tailwind.css
 
-I try to building a clone of Netflix website but only profile management page
+I try to building a clone of Netflix website
 
 **Important : This is just a showcase website
 
