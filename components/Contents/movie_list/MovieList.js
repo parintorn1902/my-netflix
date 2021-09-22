@@ -179,7 +179,7 @@ function MovieList({ profileData }) {
     }
   };
 
-  return <div className="flex flex-col animate-fade-in">{renderContent()}</div>;
+  return <div className="animate-fade-in">{renderContent()}</div>;
 }
 
 export default MovieList;
