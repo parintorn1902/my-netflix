@@ -50,17 +50,18 @@ function MoviePreviewForTouchDevice({ popItem, popVideo, popCredits, mediaGenres
               allowFullScreen
             ></iframe>
           ) : (
-            <Image
+            <img
+              className="object-fill"
               src={
                 imageBaseUrl +
                 (popItem?.targetData?.backdrop_path || popItem?.targetData?.poster_path)
               }
               alt={popItem?.targetData?.name}
-              layout="fill"
-              objectFit="cover"
-              loading="eager"
-              placeholder="blur"
-              blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
+              // layout="fill"
+              // objectFit="cover"
+              // loading="eager"
+              // placeholder="blur"
+              // blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
             />
           )}
         </div>

@@ -4,8 +4,15 @@ import ImageHelper from "@utils/ImageHelper";
 import tw from "@utils/Tailwind";
 import Image from "next/image";
 
-
-function ProfileItem({ profileImage, profileName, isLocked, isAddProfile, showEditLayout, onClick }) {
+function ProfileItem({
+  profileImage,
+  profileName,
+  isLocked,
+  isAddProfile,
+  showEditLayout,
+  onClick,
+}) {
+  console.log("🚀 ~ profileImage", profileImage);
 
   const getProfileImageContent = () => {
     if (isAddProfile === true) {
@@ -41,53 +48,50 @@ function ProfileItem({ profileImage, profileName, isLocked, isAddProfile, showEd
               "border-4 border-transparent group-hover:border-gray-100 z-10" // style
             )}
           />
-          {
-            profileImage && (
-              <Image
-                src={require("@assets/images/" + profileImage)}
-                alt="Profile Image"
-                layout="responsive"
-                objectFit="fill"
-                quality={65}
-                placeholder="blur"
-                blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
-              />
-            )
-          }
-          {
-            showEditLayout && (
+          {profileImage && (
+            <img
+              className={tw("object-contain w-full")}
+              src={profileImage}
+              alt="Profile Image"
+              // layout="responsive"
+              // objectFit="fill"
+              // quality={65}
+              // placeholder="blur"
+              // blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
+            />
+          )}
+          {showEditLayout && (
+            <div
+              className={tw(
+                "absolute flex items-center justify-center", // layout
+                "h-[10vw] w-[10vw] lg:min-w-[100px] lg:min-h-[100px]", // measure
+                "top-0 bg-[#00000080] z-20" // style
+              )}
+            >
               <div
                 className={tw(
-                  "absolute flex items-center justify-center", // layout
-                  "h-[10vw] w-[10vw] lg:min-w-[100px] lg:min-h-[100px]", // measure 
-                  "top-0 bg-[#00000080] z-20" // style
+                  "p-1.5", // measure
+                  "rounded-full border-white border-2" // style
                 )}
               >
-                <div
+                <PencilIcon
                   className={tw(
-                    "p-1.5", // measure
-                    "rounded-full border-white border-2" // style
+                    "w-[1.5vw] lg:w-[20px]", // measure
+                    "text-white" // style
                   )}
-                >
-                  <PencilIcon
-                    className={tw(
-                      "w-[1.5vw] lg:w-[20px]", // measure
-                      "text-white" // style
-                    )}
-                  />
-                </div>
+                />
               </div>
-            )
-          }
+            </div>
+          )}
         </div>
       );
     }
-  }
+  };
 
   return (
     <li
       className={tw(
-        "flex flex-col items-center", // layout 
+        "flex flex-col items-center", // layout
         "w-[10vw] min-w-[100px] mb-[2em] lg:mb-[20px]" // measure
       )}
       onClick={onClick}
@@ -114,12 +118,10 @@ function ProfileItem({ profileImage, profileName, isLocked, isAddProfile, showEd
           "w-[1.25vw] h-[1.25vw] lg:w-[14px] lg:h-[14px]" // measure
         )}
       >
-        {
-          isLocked && <LockClosedIcon />
-        }
+        {isLocked && <LockClosedIcon />}
       </div>
     </li>
-  )
+  );
 }
 
-export default ProfileItem
+export default ProfileItem;

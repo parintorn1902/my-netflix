@@ -33,14 +33,16 @@ function Banner() {
   return (
     <header className={tw("flex flex-col justify-end", "h-[38vw] w-full md:mt-[70px] z-[-1]")}>
       <div className={tw("absolute top-0 left-0", "w-full h-[56.25vw]")}>
-        <Image
+        <img
+          className="w-full"
           src={imageBaseUrl + movie?.backdrop_path}
-          layout="fill"
-          placeholder="blur"
-          blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
-          loading="eager"
+          alt={movie?.name}
+          // layout="fill"
+          // placeholder="blur"
+          // blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
+          // loading="eager"
           // quality={65}
-          priority
+          // priority
         />
         <div
           className={tw(

@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import NewProfileImage from "@assets/images/newprofile.png";
 import TextInput from "@components/TextInput/TextInput";
 import Button from "@components/Button/Button";
 import Checkbox from "@components/Checkbox/Checkbox";
@@ -10,7 +8,6 @@ import UserProfileApi from "@app/master/user_profiles/UserProfileApi";
 import ImageHelper from "@utils/ImageHelper";
 
 function AddProfile({ onCancel }) {
-
   const [profileName, setProfileName] = useState("");
   const [showError, setShowError] = useState(false);
   const [activeValidate, setActionValidate] = useState(false);
@@ -20,15 +17,15 @@ function AddProfile({ onCancel }) {
     if (activeValidate) {
       validateProfileName();
     }
-  }, [profileName])
+  }, [profileName]);
 
   const toggleSetKid = () => {
     setIsKid(!isKid);
-  }
+  };
 
   const handleProfileNameChange = ({ target }) => {
     setProfileName(target.value);
-  }
+  };
 
   const handleSubmitAddProfile = () => {
     setActionValidate(true);
@@ -38,7 +35,7 @@ function AddProfile({ onCancel }) {
       UserProfileApi.addUserProfile(profileName);
       onCancel();
     }
-  }
+  };
 
   const validateProfileName = () => {
     if (profileName?.length === 0) {
@@ -48,7 +45,7 @@ function AddProfile({ onCancel }) {
 
     setShowError(false);
     return false;
-  }
+  };
 
   return (
     <div
@@ -58,20 +55,8 @@ function AddProfile({ onCancel }) {
         "overflow-hidden"
       )}
     >
-      <div
-        className={tw(
-          "flex flex-col",
-          "animate-landing-loaded"
-        )}
-      >
-        <div
-          className={tw(
-            "text-[4vw] lg:text-[30px]",
-            "text-white"
-          )}
-        >
-          Add Profile
-        </div>
+      <div className={tw("flex flex-col", "animate-landing-loaded")}>
+        <div className={tw("text-[4vw] lg:text-[30px]", "text-white")}>Add Profile</div>
         <div className="mb-[1em]">Add a profile for another person watching Netflix</div>
         <div
           className={tw(
@@ -86,23 +71,18 @@ function AddProfile({ onCancel }) {
                 "rounded-md overflow-hidden"
               )}
             >
-              <Image
-                className="object-contain"
+              <img
+                className="object-contain w-full"
                 layout="responsive"
-                objectFit="fill"
-                src={NewProfileImage}
-                alt="Profile Image"
-                placeholder="blur"
-                blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
+                src={"newprofile.png"}
+                // objectFit="fill"
+                // alt="Profile Image"
+                // placeholder="blur"
+                // blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
               />
             </div>
             <div className="flex items-center justify-center">
-              <div
-                className={tw(
-                  "flex flex-col",
-                  "ml-[2em]"
-                )}
-              >
+              <div className={tw("flex flex-col", "ml-[2em]")}>
                 <div className="flex flex-row items-center justify-center">
                   <TextInput
                     placeholder="Name"
@@ -119,20 +99,12 @@ function AddProfile({ onCancel }) {
                   />
                 </div>
 
-                {
-                  showError && (
-                    <span
-                      className={tw(
-                        " text-[1vw] lg:text-[12px] mt-[.5em]",
-                        "text-[#b9090b]"
-                      )}
-                    >
-                      Please enter name
-                    </span>
-                  )
-                }
+                {showError && (
+                  <span className={tw(" text-[1vw] lg:text-[12px] mt-[.5em]", "text-[#b9090b]")}>
+                    Please enter name
+                  </span>
+                )}
               </div>
-
             </div>
           </div>
         </div>
@@ -145,14 +117,11 @@ function AddProfile({ onCancel }) {
             onClick={handleSubmitAddProfile}
           />
           <div className="w-[20px]" />
-          <Button
-            buttonText="CANCEL"
-            onClick={onCancel}
-          />
+          <Button buttonText="CANCEL" onClick={onCancel} />
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default AddProfile
+export default AddProfile;

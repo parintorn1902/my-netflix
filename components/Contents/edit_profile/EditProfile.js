@@ -10,7 +10,6 @@ import tw from "@utils/Tailwind";
 import ImageHelper from "@utils/ImageHelper";
 
 function EditProfile({ editProfile = {}, onCancel }) {
-
   const [profileName, setProfileName] = useState("");
   const [showError, setShowError] = useState(false);
   const [activeValidate, setActionValidate] = useState(false);
@@ -31,7 +30,7 @@ function EditProfile({ editProfile = {}, onCancel }) {
     if (activeValidate) {
       validateProfileName();
     }
-  }, [profileName])
+  }, [profileName]);
 
   const validateProfileName = () => {
     if (profileName?.length === 0) {
@@ -41,19 +40,19 @@ function EditProfile({ editProfile = {}, onCancel }) {
 
     setShowError(false);
     return false;
-  }
+  };
 
   const handleProfileNameChange = ({ target }) => {
     setProfileName(target.value);
-  }
+  };
 
   const handleAutoPlayNextEpChange = () => {
     setAutoPlayNextEp(!autoPlayNextEp);
-  }
+  };
 
   const handleAutoPreviewsChange = () => {
     setAutoPlayPreviews(!autoPlayPreviews);
-  }
+  };
 
   const handleSaveEdit = () => {
     setActionValidate(true);
@@ -67,13 +66,13 @@ function EditProfile({ editProfile = {}, onCancel }) {
       ...editProfile,
       profileName,
       autoPlayNextEp,
-      autoPlayPreviews
+      autoPlayPreviews,
     };
 
     UserProfileApi.updateUserProfile(userProfileData);
 
     onCancel();
-  }
+  };
 
   return (
     <div
@@ -83,13 +82,7 @@ function EditProfile({ editProfile = {}, onCancel }) {
         "overflow-hidden"
       )}
     >
-      <div
-        className={tw(
-          "flex flex-col",
-          "px-[20px]",
-          "text-[#ddd] animate-landing-loaded"
-        )}
-      >
+      <div className={tw("flex flex-col", "px-[20px]", "text-[#ddd] animate-landing-loaded")}>
         <h1 className="text-[4vw] lg:text-[30px]">Edit Profile</h1>
         <div
           className={tw(
@@ -100,18 +93,17 @@ function EditProfile({ editProfile = {}, onCancel }) {
           <div className="flex flex-row">
             <div className="flex-col h-full mr-[20px]">
               <div className="w-[8vw] h-[8vw] lg:w-[70px] lg:h-[70px] rounded-md overflow-hidden">
-                {
-                  profileImage && (
-                    <Image
-                      src={require("@assets/images/" + profileImage)}
-                      alt="Profile Image"
-                      layout="responsive"
-                      objectFit="fill"
-                      placeholder="blur"
-                      blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
-                    />
-                  )
-                }
+                {profileImage && (
+                  <img
+                    className="object-contain w-full"
+                    src={profileImage}
+                    alt="Profile Image"
+                    // layout="responsive"
+                    // objectFit="fill"
+                    // placeholder="blur"
+                    // blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
+                  />
+                )}
               </div>
             </div>
             <div className="flex flex-col flex-1">
@@ -122,28 +114,27 @@ function EditProfile({ editProfile = {}, onCancel }) {
                 value={profileName}
                 error={showError}
               />
-              {
-                showError && (
-                  <span
-                    className={tw(
-                      " text-[1vw] lg:text-[12px] mt-[.5em]",
-                      "text-[#b9090b]"
-                    )}
-                  >
-                    Please enter name
-                  </span>
-                )
-              }
+              {showError && (
+                <span className={tw(" text-[1vw] lg:text-[12px] mt-[.5em]", "text-[#b9090b]")}>
+                  Please enter name
+                </span>
+              )}
               <span className="mt-[1em]">Language: English</span>
               <Divider />
               <div className="flex flex-row">
                 <LockClosedIcon className="mr-[.75em] w-[1.5em] lg:w-[20px]" />
-                <span>Profile Lock is <strong>{isLocked ? "ON" : "OFF"}</strong></span>
+                <span>
+                  Profile Lock is <strong>{isLocked ? "ON" : "OFF"}</strong>
+                </span>
               </div>
               <Divider />
               <span>Maturity Settings:</span>
-              <span className="py-[.3em] px-[.6em] text-white bg-[#333] w-[fit-content] my-[1em]">ALL MATURITY RATINGS</span>
-              <span className="text-white">Show titles of <b>all maturity ratings</b> for this profile.</span>
+              <span className="py-[.3em] px-[.6em] text-white bg-[#333] w-[fit-content] my-[1em]">
+                ALL MATURITY RATINGS
+              </span>
+              <span className="text-white">
+                Show titles of <b>all maturity ratings</b> for this profile.
+              </span>
               <Divider />
               <span>Autoplay controls</span>
               <div className="flex flex-row mt-[.4em]" onClick={handleAutoPlayNextEpChange}>
@@ -162,19 +153,12 @@ function EditProfile({ editProfile = {}, onCancel }) {
           </div>
         </div>
         <div className="flex flex-row mt-[2em] space-x-[20px] lg:justify-center">
-          <Button
-            variant="contained"
-            buttonText="SAVE"
-            onClick={handleSaveEdit}
-          />
-          <Button
-            buttonText="CANCEL"
-            onClick={onCancel}
-          />
+          <Button variant="contained" buttonText="SAVE" onClick={handleSaveEdit} />
+          <Button buttonText="CANCEL" onClick={onCancel} />
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default EditProfile
+export default EditProfile;

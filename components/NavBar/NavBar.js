@@ -1,5 +1,4 @@
 import Image from "next/image";
-import NetflixLogo from "@assets/images/logo.png";
 import tw from "@utils/Tailwind";
 import { LockClosedIcon, SearchIcon } from "@heroicons/react/outline";
 import { BellIcon, ChevronDownIcon, XIcon } from "@heroicons/react/solid";
@@ -11,9 +10,8 @@ import { setPreLaunchProfile, setSearchFilter } from "@app/store/slice/globalSli
 import ImageHelper from "@utils/ImageHelper";
 
 function NavBar({ profileData, onManageProfile, onExitProfile }) {
-
   const dispatch = useDispatch();
-  const searchFilter = useSelector(state => state.global.searchFilter);
+  const searchFilter = useSelector((state) => state.global.searchFilter);
 
   const [showSearchParent, setShowSearchParent] = useState(false);
   const [showSearchTextInput, setShowSearchTextInput] = useState(false);
@@ -42,14 +40,13 @@ function NavBar({ profileData, onManageProfile, onExitProfile }) {
   });
 
   const handleSearchIconClick = async () => {
-    setShowSearchParent(true)
+    setShowSearchParent(true);
     setShowSearchIcon(false);
     await ThreadHelper.sleep(300);
     setShowSearchTextInput(true);
-  }
+  };
 
   const handleSearchTextInputBlurred = async () => {
-
     if (searchFilter?.length > 0) {
       return;
     }
@@ -59,29 +56,30 @@ function NavBar({ profileData, onManageProfile, onExitProfile }) {
     setShowSearchTextInput(false);
     await ThreadHelper.sleep(300);
     setShowSearchIcon(true);
-  }
+  };
 
   const handleSearchTextInputChange = ({ target }) => {
     dispatch(setSearchFilter(target.value));
-  }
+  };
 
   const handleClearSearchTextIconClick = () => {
     clearSearchText();
     if (searchTextInputRef.current) {
       searchTextInputRef.current.focus();
     }
-  }
+  };
 
   const clearSearchText = () => {
     dispatch(setSearchFilter(""));
-  }
+  };
 
   const handleChangeProfile = (launchProfileData) => {
     dispatch(setPreLaunchProfile(launchProfileData));
-  }
+  };
 
   const renderNavMenu = () => {
-    const inactiveListItemClasses = "cursor-pointer hover:text-[#b3b3b3] transition-all duration-300";
+    const inactiveListItemClasses =
+      "cursor-pointer hover:text-[#b3b3b3] transition-all duration-300";
     const rightMenuIconClass = "text-white";
     if (profileData) {
       return (
@@ -90,7 +88,7 @@ function NavBar({ profileData, onManageProfile, onExitProfile }) {
             className={tw(
               "inline-flex lg:hidden",
               "space-x-[1vw] pl-[2.2vw]",
-              "text-[.75vw] 2xl:text-[14px] text-white font-normal",
+              "text-[.75vw] 2xl:text-[14px] text-white font-normal"
             )}
           >
             <li className="font-bold">Home</li>
@@ -102,16 +100,10 @@ function NavBar({ profileData, onManageProfile, onExitProfile }) {
           <div
             className={tw(
               "flex items-center justify-center absolute",
-              "h-full right-[60px] 2xl:right-[4%] top-0 space-x-[20px]",
+              "h-full right-[60px] 2xl:right-[4%] top-0 space-x-[20px]"
             )}
           >
-            <div
-              className={tw(
-                "flex flex-row",
-                "cursor-pointer",
-                "md:hidden"
-              )}
-            >
+            <div className={tw("flex flex-row", "cursor-pointer", "md:hidden")}>
               <div
                 className={tw(
                   "flex flex-row items-center",
@@ -121,61 +113,40 @@ function NavBar({ profileData, onManageProfile, onExitProfile }) {
                   showSearchParent ? "w-[250px] visible" : "w-0 invisible"
                 )}
               >
-                <SearchIcon
-                  className={tw(
-                    rightMenuIconClass
-                  )}
-                  width={25}
-                />
-                {
-                  showSearchTextInput && (
-                    <input
-                      ref={searchTextInputRef}
-                      className={tw(
-                        "outline-none bg-transparent",
-                        "text-white text-[16px]",
-                        "h-[30px] px-[10px]"
-                      )}
-                      type="text"
-                      autoFocus
-                      placeholder="Titles, people, genres"
-                      onBlur={handleSearchTextInputBlurred}
-                      onChange={handleSearchTextInputChange}
-                      value={searchFilter}
-                    />
-                  )
-                }
-                {
-                  searchFilter?.length > 0 && (
-                    <XIcon
-                      className={tw(
-                        rightMenuIconClass
-                      )}
-                      width={18}
-                      onClick={handleClearSearchTextIconClick}
-                    />
-                  )
-                }
-              </div>
-              {
-                showSeachIcon && (
-                  <SearchIcon
+                <SearchIcon className={tw(rightMenuIconClass)} width={25} />
+                {showSearchTextInput && (
+                  <input
+                    ref={searchTextInputRef}
                     className={tw(
-                      rightMenuIconClass
+                      "outline-none bg-transparent",
+                      "text-white text-[16px]",
+                      "h-[30px] px-[10px]"
                     )}
-                    width={25}
-                    onClick={handleSearchIconClick}
+                    type="text"
+                    autoFocus
+                    placeholder="Titles, people, genres"
+                    onBlur={handleSearchTextInputBlurred}
+                    onChange={handleSearchTextInputChange}
+                    value={searchFilter}
                   />
-                )
-              }
-            </div>
-            <BellIcon
-              className={tw(
-                rightMenuIconClass,
-                "cursor-pointer"
+                )}
+                {searchFilter?.length > 0 && (
+                  <XIcon
+                    className={tw(rightMenuIconClass)}
+                    width={18}
+                    onClick={handleClearSearchTextIconClick}
+                  />
+                )}
+              </div>
+              {showSeachIcon && (
+                <SearchIcon
+                  className={tw(rightMenuIconClass)}
+                  width={25}
+                  onClick={handleSearchIconClick}
+                />
               )}
-              width={25}
-            />
+            </div>
+            <BellIcon className={tw(rightMenuIconClass, "cursor-pointer")} width={25} />
 
             <div className="relative group">
               <div className="profile-tooltip">
@@ -187,17 +158,15 @@ function NavBar({ profileData, onManageProfile, onExitProfile }) {
                     "profile-tooltip-text"
                   )}
                 >
-                  {
-                    profileData?.profileImage && (
-                      <Image
-                        className="rounded-[5px]"
-                        src={require("@assets/images/" + profileData.profileImage)}
-                        alt={profileData.profileImage}
-                        width={32}
-                        height={32}
-                      />
-                    )
-                  }
+                  {profileData?.profileImage && (
+                    <img
+                      className="rounded-[5px] w-8 h-8"
+                      src={profileData.profileImage}
+                      alt={profileData.profileImage}
+                      // width={32}
+                      // height={32}
+                    />
+                  )}
                   <ChevronDownIcon
                     className={tw(
                       rightMenuIconClass,
@@ -209,43 +178,30 @@ function NavBar({ profileData, onManageProfile, onExitProfile }) {
                 <div className="profile-tooltip-content text-[13px]">
                   <div className="flex flex-col text-left p-[0.8em]">
                     <div className="mt-[10px] mb-[5px]">
-                      {
-                        UserProfileData
-                          .filter(item => item.profileId !== profileData.profileId)
-                          .map(item => (
-                            <NavProfileItem
-                              key={item.profileId}
-                              profileData={item}
-                              onClick={() => handleChangeProfile(item)}
-                            />
-                          ))
-                      }
+                      {UserProfileData.filter(
+                        (item) => item.profileId !== profileData.profileId
+                      ).map((item) => (
+                        <NavProfileItem
+                          key={item.profileId}
+                          profileData={item}
+                          onClick={() => handleChangeProfile(item)}
+                        />
+                      ))}
                     </div>
                     <div
-                      className={tw(
-                        "cursor-pointer hover:underline mb-[24px]"
-                      )}
+                      className={tw("cursor-pointer hover:underline mb-[24px]")}
                       onClick={onManageProfile}
                     >
                       Manage Profiles
                     </div>
                     <div
-                      className={tw(
-                        "cursor-pointer hover:underline mb-[5px]"
-                      )}
+                      className={tw("cursor-pointer hover:underline mb-[5px]")}
                       onClick={onExitProfile}
                     >
                       Exit Profile
                     </div>
                   </div>
-                  <div
-                    className={
-                      tw(
-                        "w-full h-[0.5px]",
-                        "bg-[#555]"
-                      )
-                    }
-                  />
+                  <div className={tw("w-full h-[0.5px]", "bg-[#555]")} />
                   <div
                     className={tw(
                       "flex flex-col",
@@ -254,38 +210,20 @@ function NavBar({ profileData, onManageProfile, onExitProfile }) {
                       "cursor-pointer"
                     )}
                   >
-                    <div
-                      className={tw(
-                        "hover:underline"
-                      )}
-                    >
-                      Account
-                    </div>
-                    <div
-                      className={tw(
-                        "hover:underline"
-                      )}
-                    >
-                      Help Center
-                    </div>
-                    <div
-                      className={tw(
-                        "hover:underline"
-                      )}
-                    >
-                      Sign out of Netflix
-                    </div>
+                    <div className={tw("hover:underline")}>Account</div>
+                    <div className={tw("hover:underline")}>Help Center</div>
+                    <div className={tw("hover:underline")}>Sign out of Netflix</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </>
-      )
+      );
     } else {
       return null;
     }
-  }
+  };
 
   return (
     <nav
@@ -297,57 +235,44 @@ function NavBar({ profileData, onManageProfile, onExitProfile }) {
         "transition duration-300"
       )}
     >
-      <div
-        className={tw(
-          "cursor-pointer",
-          "ml-[3.2vw] w-[90px] md:w-[65px]"
-        )}
-      >
-        <Image
-          className="object-contain"
-          src={NetflixLogo}
+      <div className={tw("cursor-pointer", "ml-[3.2vw] w-[90px] md:w-[65px]")}>
+        <img
+          className="object-contain w-full"
+          src={"logo.png"}
           alt="Logo"
-          layout="responsive"
-          objectFit="fill"
-          loading="eager"
-          quality={30}
-          placeholder="blur"
-          blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
+          // layout="responsive"
+          // objectFit="fill"
+          // loading="eager"
+          // quality={30}
+          // placeholder="blur"
+          // blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
         />
       </div>
       {renderNavMenu()}
     </nav>
-  )
+  );
 }
 
-export default NavBar
+export default NavBar;
 
 const NavProfileItem = ({ profileData, onClick }) => {
   return (
     <div
-      className={tw(
-        "flex flex-row items-center",
-        "mb-[10px]",
-        "cursor-pointer hover:underline"
-      )}
+      className={tw("flex flex-row items-center", "mb-[10px]", "cursor-pointer hover:underline")}
       onClick={onClick}
     >
-      <Image
-        className="object-contain rounded-[5px]"
-        src={require("@assets/images/" + profileData?.profileImage)}
+      <img
+        className="object-contain rounded-[5px] w-8 h-8"
+        src={profileData?.profileImage}
         alt={profileData?.profileName}
-        loading="eager"
-        priority
-        width={32}
-        height={32}
-        quality={50}
+        // loading="eager"
+        // priority
+        // width={32}
+        // height={32}
+        // quality={50}
       />
       <div className="flex flex-1 ml-[10px]">{profileData?.profileName}</div>
-      {
-        profileData?.isLocked && (
-          <LockClosedIcon width={18} />
-        )
-      }
+      {profileData?.isLocked && <LockClosedIcon width={18} />}
     </div>
-  )
-}
+  );
+};

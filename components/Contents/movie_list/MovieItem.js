@@ -63,14 +63,15 @@ function MovieItem({ movie, isFirstChild = false, itemIndex, onMouseEnter }) {
           "lg:min-w-[175px] lg:min-h-[96px] bg-[gray]"
         )}
       >
-        <Image
+        <img
+          className="object-fill"
           src={imageBaseUrl + imagePath}
           alt={movie?.name}
-          layout="fill"
-          objectFit="cover"
-          loading="eager"
-          placeholder="blur"
-          blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
+          // layout="fill"
+          // objectFit="cover"
+          // loading="eager"
+          // placeholder="blur"
+          // blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
         />
       </div>
     </div>
