@@ -51,7 +51,7 @@ function MoviePreviewForTouchDevice({ popItem, popVideo, popCredits, mediaGenres
             ></iframe>
           ) : (
             <img
-              className="object-fill"
+              className="object-fill w-full h-full"
               src={
                 imageBaseUrl +
                 (popItem?.targetData?.backdrop_path || popItem?.targetData?.poster_path)
