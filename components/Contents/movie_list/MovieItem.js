@@ -64,7 +64,7 @@ function MovieItem({ movie, isFirstChild = false, itemIndex, onMouseEnter }) {
         )}
       >
         <img
-          className="object-fill"
+          className="object-fill w-full h-full"
           src={imageBaseUrl + imagePath}
           alt={movie?.name}
           // layout="fill"
