@@ -5,8 +5,8 @@ import tw from "@utils/Tailwind";
 
 const BACK_SPACE_KEY = "Backspace";
 
-function AuthenProfile({ profileData = {}, onLaunchProfile, onCancel }) {
-  const { profilePassword } = profileData;
+function AuthenProfile({ profileData, onLaunchProfile, onCancel }) {
+  const { profilePassword } = profileData || {};
 
   const [ready, setReady] = useState(true);
   const [pin1, setPin1] = useState("");

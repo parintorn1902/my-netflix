@@ -34,7 +34,7 @@ function MovieList({ profileData }) {
 
   useEffect(() => {
     if (popItem) {
-      console.log("Pop", popItem);
+      // console.log("Pop", popItem);
       setPopVideo(null);
       setPopCredits(null);
       fetchPopVideos();
@@ -120,7 +120,7 @@ function MovieList({ profileData }) {
   };
 
   const handleMouseLeave = () => {
-    console.log("Leave");
+    // console.log("Leave");
     setPopItem(null);
     setPopVideo(null);
     setPopCredits(null);

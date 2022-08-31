@@ -12,38 +12,41 @@ const imageBaseUrl = `https://${process.env.IMAGE_DOMAIN}/t/p/original`;
 function Banner() {
   const [movie, setMovie] = useState(null);
 
-  useEffect(() => {
-    const fetchMovie = async () => {
-      let fetchResponse = await Service.get(APIConstant.URL.NEXTFLEX_ORIGINALS);
-      if (fetchResponse.success) {
-        let results = fetchResponse.data.results;
-        let randomBanner = results[Math.floor(Math.random() * results.length - 1)];
-        // console.log("banner movie", randomBanner);
-        if (randomBanner) {
-          setMovie(randomBanner);
-        } else {
-          setMovie(results[0]);
-        }
+  const fetchMovie = async () => {
+    let fetchResponse = await Service.get(APIConstant.URL.NEXTFLEX_ORIGINALS);
+    if (fetchResponse.success) {
+      let results = fetchResponse.data.results;
+      let randomBanner = results[Math.floor(Math.random() * (results.length - 1))];
+      if (randomBanner) {
+        setMovie(randomBanner);
+      } else {
+        setMovie(results[0]);
       }
-    };
+    }
+  };
 
-    fetchMovie();
-  }, []);
+  useEffect(() => {
+    if (movie == null) {
+      fetchMovie();
+    }
+  }, [movie]);
 
   return (
     <header className={tw("flex flex-col justify-end", "h-[38vw] w-full md:mt-[70px] z-[-1]")}>
       <div className={tw("absolute top-0 left-0", "w-full h-[56.25vw]")}>
-        <img
-          className="w-full"
-          src={imageBaseUrl + movie?.backdrop_path}
-          alt={movie?.name}
-          // layout="fill"
-          // placeholder="blur"
-          // blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
-          // loading="eager"
-          // quality={65}
-          // priority
-        />
+        {movie && (
+          <Image
+            className="w-full"
+            src={imageBaseUrl + movie?.backdrop_path}
+            alt={movie?.name}
+            layout="fill"
+            placeholder="blur"
+            blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
+            loading="eager"
+            quality={65}
+            priority
+          />
+        )}
         <div
           className={tw(
             "absolute bottom-0",

@@ -10,10 +10,14 @@ import {
 } from "@heroicons/react/solid";
 import tw from "@utils/Tailwind";
 import NumberHelper from "@utils/NumberHelper";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const imageBaseUrl = `https://${process.env.IMAGE_DOMAIN}/t/p/w400`;
 
 function MoviePreview({ popItem, popVideo, mediaGenres, onMouseLeave }) {
+  const [randMatching, setRandMatching] = useState(NumberHelper.random(80, 100));
+
   const getPopY = () => {
     const { y, height } = popItem.targetRef.getBoundingClientRect();
     let popHeight = 0.22 * window.innerWidth < 240 ? 240 : 0.22 * window.innerWidth;
@@ -39,6 +43,10 @@ function MoviePreview({ popItem, popVideo, mediaGenres, onMouseLeave }) {
     }
     return result;
   };
+
+  useEffect(() => {
+    setRandMatching(NumberHelper.random(80, 100));
+  }, [popItem]);
 
   return (
     <div
@@ -66,18 +74,18 @@ function MoviePreview({ popItem, popVideo, mediaGenres, onMouseLeave }) {
             allowFullScreen
           />
         ) : (
-          <img
+          <Image
             className="object-fill w-full h-full"
             src={
               imageBaseUrl +
               (popItem?.targetData?.backdrop_path || popItem?.targetData?.poster_path)
             }
             alt={popItem?.targetData?.name}
-            // layout="fill"
-            // objectFit="cover"
-            // loading="eager"
-            // placeholder="blur"
-            // blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
+            layout="fill"
+            objectFit="cover"
+            loading="eager"
+            placeholder="blur"
+            blurDataURL={ImageHelper.getBlurDataUrl("100%", "100%")}
           />
         )}
       </div>
@@ -101,7 +109,7 @@ function MoviePreview({ popItem, popVideo, mediaGenres, onMouseLeave }) {
           </WrapIcon>
         </div>
         <div className="flex flex-row items-center mt-[.75vw]">
-          <span className="text-[#5ddc62] font-bold">{NumberHelper.random(80, 100)}% Match</span>
+          <span className="text-[#5ddc62] font-bold">{randMatching}% Match</span>
           <span className="border-[1px] border-gray-500 px-[.5vw] ml-[.75vw] text-[#eee] font-semibold">
             16+
           </span>
