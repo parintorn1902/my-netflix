@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { LockClosedIcon } from "@heroicons/react/outline";
 import TextInput from "@components/TextInput/TextInput";
 import Button from "@components/Button/Button";
 import Divider from "@components/Divider/Divider";
@@ -8,6 +7,7 @@ import Checkbox from "@components/Checkbox/Checkbox";
 import UserProfileApi from "@app/master/user_profiles/UserProfileApi";
 import tw from "@utils/Tailwind";
 import ImageHelper from "@utils/ImageHelper";
+import { IconLock } from "@tabler/icons";
 
 function EditProfile({ editProfile = {}, onCancel }) {
   const [profileName, setProfileName] = useState("");
@@ -122,7 +122,7 @@ function EditProfile({ editProfile = {}, onCancel }) {
               <span className="mt-[1em]">Language: English</span>
               <Divider />
               <div className="flex flex-row">
-                <LockClosedIcon className="mr-[.75em] w-[1.5em] lg:w-[20px]" />
+                <IconLock className="mr-[.75em] w-[1.5em] h-auto lg:w-[20px]" />
                 <span>
                   Profile Lock is <strong>{isLocked ? "ON" : "OFF"}</strong>
                 </span>

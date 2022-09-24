@@ -1,5 +1,4 @@
-import { LockClosedIcon } from "@heroicons/react/outline";
-import { PlusCircleIcon, PencilIcon } from "@heroicons/react/solid";
+import { IconCirclePlus, IconLock, IconPencil, IconPlus } from "@tabler/icons";
 import ImageHelper from "@utils/ImageHelper";
 import tw from "@utils/Tailwind";
 import Image from "next/image";
@@ -24,12 +23,19 @@ function ProfileItem({
             "bg-transparent rounded-md group-hover:bg-gray-100" // style
           )}
         >
-          <PlusCircleIcon
+          <div
             className={tw(
-              "text-[gray]", // style
-              "w-[8vw] lg:min-w-[75px]" // measure
+              "flex items-center justify-center",
+              "w-[6vw] h-[6vw] lg:min-w-[40px] lg:min-h-[40px] bg-[gray] rounded-full" // measure
             )}
-          />
+          >
+            <IconPlus
+              className={tw(
+                "text-[#131313] group-hover:text-gray-100", // style
+                "w-[4vw] h-full lg:min-w-[32px]" // measure
+              )}
+            />
+          </div>
         </div>
       );
     } else {
@@ -74,9 +80,9 @@ function ProfileItem({
                   "rounded-full border-white border-2" // style
                 )}
               >
-                <PencilIcon
+                <IconPencil
                   className={tw(
-                    "w-[1.5vw] lg:w-[20px]", // measure
+                    "w-[1.5vw] h-auto lg:w-[20px]", // measure
                     "text-white" // style
                   )}
                 />
@@ -118,7 +124,7 @@ function ProfileItem({
           "w-[1.25vw] h-[1.25vw] lg:w-[14px] lg:h-[14px]" // measure
         )}
       >
-        {isLocked && <LockClosedIcon />}
+        {isLocked && <IconLock className="h-full w-full" />}
       </div>
     </li>
   );

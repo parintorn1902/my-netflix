@@ -1,17 +1,17 @@
 import React from "react";
 import Image from "next/image";
 import ImageHelper from "@utils/ImageHelper";
-import {
-  ChevronDownIcon,
-  PlayIcon,
-  PlusIcon,
-  ThumbDownIcon,
-  ThumbUpIcon,
-} from "@heroicons/react/solid";
 import tw from "@utils/Tailwind";
 import NumberHelper from "@utils/NumberHelper";
 import { useState } from "react";
 import { useEffect } from "react";
+import {
+  IconChevronDown,
+  IconPlayerPlay,
+  IconPlus,
+  IconThumbDown,
+  IconThumbUp,
+} from "@tabler/icons";
 
 const imageBaseUrl = `https://${process.env.IMAGE_DOMAIN}/t/p/w400`;
 
@@ -92,20 +92,20 @@ function MoviePreview({ popItem, popVideo, mediaGenres, onMouseLeave }) {
       <div className="w-full h-full p-[1vw] text-[1vw] lg:text-[0.8rem]">
         <div className="flex flex-row items-center space-x-2 lg:space-x-1">
           <WrapIcon>
-            <PlayIcon className={popupIconClasses} />
+            <IconPlayerPlay className={popupIconClasses} />
           </WrapIcon>
           <WrapIcon>
-            <PlusIcon className={popupIconClasses} />
+            <IconPlus className={popupIconClasses} />
           </WrapIcon>
           <WrapIcon>
-            <ThumbUpIcon className={popupIconClasses} />
+            <IconThumbUp className={popupIconClasses} />
           </WrapIcon>
           <WrapIcon>
-            <ThumbDownIcon className={popupIconClasses} />
+            <IconThumbDown className={popupIconClasses} />
           </WrapIcon>
           <div className="flex flex-1" />
           <WrapIcon>
-            <ChevronDownIcon className={popupIconClasses} />
+            <IconChevronDown className={popupIconClasses} />
           </WrapIcon>
         </div>
         <div className="flex flex-row items-center mt-[.75vw]">
@@ -145,7 +145,7 @@ function MoviePreview({ popItem, popVideo, mediaGenres, onMouseLeave }) {
 
 export default MoviePreview;
 
-const popupIconClasses = "w-[1.5vw] xl:w-[18px]";
+const popupIconClasses = "text-gray-500 w-[1.5vw] xl:w-[18px]";
 
 const WrapIcon = (props) => {
   return (

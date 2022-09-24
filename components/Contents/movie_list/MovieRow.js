@@ -1,11 +1,11 @@
 import Service from "@app/core/Service";
 import tw from "@utils/Tailwind";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
 import { useEffect, useRef, useState } from "react";
 import MovieItem from "./MovieItem";
 import { useSelector } from "react-redux";
 import MoviePageBar from "./MoviePageBar";
 import DeviceHelper from "@utils/DeviceHelper";
+import { IconChevronLeft, IconChevronRight } from "@tabler/icons";
 
 function MovieRow({ title, fetchUrl, rowIndex, mediaType, onMouseEnter }) {
   const searchFilter = useSelector((state) => state.global.searchFilter);
@@ -163,7 +163,7 @@ function MovieRow({ title, fetchUrl, rowIndex, mediaType, onMouseEnter }) {
           )}
           onClick={handlePreviousPageClick}
         >
-          <ChevronLeftIcon className="text-white" width={40} height="100%" />
+          <IconChevronLeft className="text-white" width={40} height="100%" />
         </div>
       )}
       {currentPage * sizePerPage < filteredMovies.length && (
@@ -178,7 +178,7 @@ function MovieRow({ title, fetchUrl, rowIndex, mediaType, onMouseEnter }) {
           )}
           onClick={handleNextPageClick}
         >
-          <ChevronRightIcon className="text-white" width={40} height="100%" />
+          <IconChevronRight className="text-white" width={40} height="100%" />
         </div>
       )}
     </div>

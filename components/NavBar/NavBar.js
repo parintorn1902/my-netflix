@@ -1,13 +1,12 @@
 import Image from "next/image";
 import tw from "@utils/Tailwind";
-import { LockClosedIcon, SearchIcon } from "@heroicons/react/outline";
-import { BellIcon, ChevronDownIcon, XIcon } from "@heroicons/react/solid";
 import { createRef, useEffect, useState } from "react";
 import ThreadHelper from "@utils/ThreadHelper";
 import UserProfileData from "@app/master/user_profiles/UserProfileData";
 import { useDispatch, useSelector } from "react-redux";
 import { setPreLaunchProfile, setSearchFilter } from "@app/store/slice/globalSlice";
 import ImageHelper from "@utils/ImageHelper";
+import { IconBell, IconChevronDown, IconLock, IconSearch, IconX } from "@tabler/icons";
 
 function NavBar({ profileData, onManageProfile, onExitProfile }) {
   const dispatch = useDispatch();
@@ -113,7 +112,7 @@ function NavBar({ profileData, onManageProfile, onExitProfile }) {
                   showSearchParent ? "w-[250px] visible" : "w-0 invisible"
                 )}
               >
-                <SearchIcon className={tw(rightMenuIconClass)} width={25} />
+                <IconSearch className={tw(rightMenuIconClass)} width={25} />
                 {showSearchTextInput && (
                   <input
                     ref={searchTextInputRef}
@@ -131,7 +130,7 @@ function NavBar({ profileData, onManageProfile, onExitProfile }) {
                   />
                 )}
                 {searchFilter?.length > 0 && (
-                  <XIcon
+                  <IconX
                     className={tw(rightMenuIconClass)}
                     width={18}
                     onClick={handleClearSearchTextIconClick}
@@ -139,14 +138,14 @@ function NavBar({ profileData, onManageProfile, onExitProfile }) {
                 )}
               </div>
               {showSeachIcon && (
-                <SearchIcon
+                <IconSearch
                   className={tw(rightMenuIconClass)}
                   width={25}
                   onClick={handleSearchIconClick}
                 />
               )}
             </div>
-            <BellIcon className={tw(rightMenuIconClass, "cursor-pointer")} width={25} />
+            <IconBell className={tw(rightMenuIconClass, "cursor-pointer")} width={25} />
 
             <div className="relative group">
               <div className="profile-tooltip">
@@ -167,7 +166,7 @@ function NavBar({ profileData, onManageProfile, onExitProfile }) {
                       // height={32}
                     />
                   )}
-                  <ChevronDownIcon
+                  <IconChevronDown
                     className={tw(
                       rightMenuIconClass,
                       "transfrom group-hover:rotate-180 transition duration-300"
@@ -272,7 +271,7 @@ const NavProfileItem = ({ profileData, onClick }) => {
         // quality={50}
       />
       <div className="flex flex-1 ml-[10px]">{profileData?.profileName}</div>
-      {profileData?.isLocked && <LockClosedIcon width={18} />}
+      {profileData?.isLocked && <IconLock width={18} />}
     </div>
   );
 };

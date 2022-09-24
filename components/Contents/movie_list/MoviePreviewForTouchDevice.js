@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import ImageHelper from "@utils/ImageHelper";
-import {
-  ChevronDownIcon,
-  PlayIcon,
-  PlusIcon,
-  ThumbDownIcon,
-  ThumbUpIcon,
-  XIcon,
-} from "@heroicons/react/solid";
 import tw from "@utils/Tailwind";
 import NumberHelper from "@utils/NumberHelper";
+import {
+  IconChevronDown,
+  IconPlayerPlay,
+  IconPlus,
+  IconThumbDown,
+  IconThumbUp,
+  IconX,
+} from "@tabler/icons";
 
 const imageBaseUrl = `https://${process.env.IMAGE_DOMAIN}/t/p/w400`;
 
@@ -38,7 +38,7 @@ function MoviePreviewForTouchDevice({ popItem, popVideo, popCredits, mediaGenres
           )}
           onClick={onMouseLeave}
         >
-          <XIcon className="text-[#555]" />
+          <IconX className="text-[#555]" />
         </div>
         <div className="w-full h-[40vh] md:h-[250px] relative">
           {popVideo ? (
@@ -68,20 +68,20 @@ function MoviePreviewForTouchDevice({ popItem, popVideo, popCredits, mediaGenres
         <div className="w-full min-h-[60vh] h-auto p-3 text-base">
           <div className="flex flex-row items-center space-x-2 lg:space-x-1">
             <WrapIcon>
-              <PlayIcon className={popupIconClasses} />
+              <IconPlayerPlay className={popupIconClasses} />
             </WrapIcon>
             <WrapIcon>
-              <PlusIcon className={popupIconClasses} />
+              <IconPlus className={popupIconClasses} />
             </WrapIcon>
             <WrapIcon>
-              <ThumbUpIcon className={popupIconClasses} />
+              <IconThumbUp className={popupIconClasses} />
             </WrapIcon>
             <WrapIcon>
-              <ThumbDownIcon className={popupIconClasses} />
+              <IconThumbDown className={popupIconClasses} />
             </WrapIcon>
             <div className="flex flex-1" />
             <WrapIcon>
-              <ChevronDownIcon className={popupIconClasses} />
+              <IconChevronDown className={popupIconClasses} />
             </WrapIcon>
           </div>
           <div className="flex flex-row items-center mt-2">

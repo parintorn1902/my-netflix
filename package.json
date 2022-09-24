@@ -10,8 +10,8 @@
     "build:static": "next build && next export"
   },
   "dependencies": {
-    "@heroicons/react": "1.0.1",
     "@reduxjs/toolkit": "^1.8.5",
+    "@tabler/icons": "^1.100.0",
     "@tailwindcss/line-clamp": "^0.4.2",
     "js-cookie": "2.2.1",
     "next": "^12.2.5",

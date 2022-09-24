@@ -1,7 +1,7 @@
-import { XIcon } from "@heroicons/react/solid";
 import { createRef, forwardRef, useEffect, useState } from "react";
 import ThreadHelper from "@utils/ThreadHelper";
 import tw from "@utils/Tailwind";
+import { IconX } from "@tabler/icons";
 
 const BACK_SPACE_KEY = "Backspace";
 
@@ -133,7 +133,7 @@ function AuthenProfile({ profileData, onLaunchProfile, onCancel }) {
         className={tw("absolute", "top-[100px] right-[30px] w-[3vw] lg:w-[30px]", "cursor-pointer")}
         onClick={onCancel}
       >
-        <XIcon className="text-white" />
+        <IconX className="text-white h-full w-full" />
       </div>
       <div className="flex flex-col items-center justify-center">
         <span>Profile Lock is currently on.</span>

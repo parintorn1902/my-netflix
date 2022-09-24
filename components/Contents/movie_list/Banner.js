@@ -1,7 +1,6 @@
 import Service from "@app/core/Service";
 import APIConstant from "@constants/APIConstant";
-import { InformationCircleIcon } from "@heroicons/react/outline";
-import { PlayIcon } from "@heroicons/react/solid";
+import { IconInfoCircle, IconPlayerPlay } from "@tabler/icons";
 import ImageHelper from "@utils/ImageHelper";
 import tw from "@utils/Tailwind";
 import Image from "next/image";
@@ -72,7 +71,7 @@ function Banner() {
               "hover:bg-[#d1cac7]"
             )}
           >
-            <PlayIcon className="w-[1.8vw] xl:w-[18px]" />
+            <IconPlayerPlay className="w-[1.8vw] h-auto xl:w-[18px]" />
             <span className="ml-[.7vw]">Play</span>
           </span>
           <a
@@ -84,7 +83,7 @@ function Banner() {
               "hover:bg-[#6d6d6e80]"
             )}
           >
-            <InformationCircleIcon className="w-[1.8vw] xl:w-[18px]" />
+            <IconInfoCircle className="w-[1.8vw] h-auto xl:w-[18px]" />
             <span className="ml-[.7vw]">More Info</span>
           </a>
         </div>
